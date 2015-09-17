@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/lime_dark</item>
+        <item name="android:colorPrimaryDark">@color/lime_very_dark</item>
+        <item name="android:textColorPrimary">@color/lime_very_light</item>
+        <item name="android:colorAccent">@color/lime_very_dark</item>
+    </style>
+
+    <style name="lime_tabs">
+        <item name="android:background">@color/lime_dark</item>
+        <item name="tabTextColor">@color/lime_very_light</item>
+        <item name="tabSelectedTextColor">@color/lime_very_dark</item>
+        <item name="tabIndicatorColor">@color/lime_very_dark</item>
+    </style>
+
+</resources>
