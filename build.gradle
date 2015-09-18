@@ -19,10 +19,13 @@ allprojects {
 }
 
 ext {
-    appcompat = "com.android.support:appcompat-v7:21.0.+"
+    appcompat = 'com.android.support:appcompat-v7:23.0.1'
+    assertj = 'org.assertj:assertj-core:1.7.0'
     butterknife = 'com.jakewharton:butterknife:7.0.1'
-    supportDesign = "com.android.support:design:23.0.1"
-    qrZxing = 'com.google.zxing:android-core:3.2.1'
+    junit4 = 'junit:junit:4.12'
+    robolectric = 'org.robolectric:robolectric:3.0'
+    supportDesign = 'com.android.support:design:23.0.1'
+    qrZxing = 'com.google.zxing:core:3.2.1'
 }
 
 task clean(type: Delete) {

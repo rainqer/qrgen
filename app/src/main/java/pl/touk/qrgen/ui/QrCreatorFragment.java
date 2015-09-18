@@ -1,6 +1,5 @@
 package pl.touk.qrgen.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,12 +13,13 @@ import com.google.zxing.WriterException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
-import pl.touk.qrgen.service.QrCodeImageGenerator;
+import pl.touk.qrgen.service.QrCodeGenerator;
+import pl.touk.qrgen.service.QrPlainTextCodeGenerator;
 
 public class QrCreatorFragment extends Fragment {
 
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
-    private QrCodeImageGenerator qrCodeImageGenerator = new QrCodeImageGenerator();
+    private QrCodeGenerator qrCodeGenerator = new QrPlainTextCodeGenerator();
 
     public static QrCreatorFragment newInstance() {
         QrCreatorFragment fragment = new QrCreatorFragment();
@@ -48,10 +48,9 @@ public class QrCreatorFragment extends Fragment {
 
     private void createQrCode() {
         try {
-            qrCodeImageView.setImageBitmap(qrCodeImageGenerator.generate(getActivity(), "aaa"));
+            qrCodeImageView.setImageBitmap(qrCodeGenerator.generate(getActivity(), "aaa"));
         } catch (WriterException e) {
             Toast.makeText(getActivity(), "QR Failed", Toast.LENGTH_LONG).show();
         }
     }
-
 }
