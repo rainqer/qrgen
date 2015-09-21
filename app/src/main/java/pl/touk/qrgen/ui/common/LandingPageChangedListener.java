@@ -1,11 +1,18 @@
 package pl.touk.qrgen.ui.common;
 
 import android.support.v4.view.ViewPager;
+import com.squareup.otto.Bus;
+import javax.inject.Inject;
+import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
+import pl.touk.qrgen.events.QrGenAppEvent;
+import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 
 public class LandingPageChangedListener implements ViewPager.OnPageChangeListener {
 
-    public LandingPageChangedListener() {
+    @Inject Bus bus;
 
+    @Inject
+    public LandingPageChangedListener() {
     }
 
     @Override
@@ -15,11 +22,15 @@ public class LandingPageChangedListener implements ViewPager.OnPageChangeListene
 
     @Override
     public void onPageSelected(int position) {
-
+        bus.post(getPageChangedEvent(position));
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private QrGenAppEvent getPageChangedEvent(int position) {
+        return position == 0 ? new GenerateCodePageSelectedEvent() : new ScanCodePageSelectedEvent();
     }
 }

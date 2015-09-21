@@ -27,7 +27,6 @@ public class QrCreatorFragment extends Fragment {
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     private QrCodeGenerator qrCodeGenerator = new QrPlainTextCodeGenerator();
     private Subscription qrCodeGenerationSubscription = Subscriptions.empty();
-    private FloatingActionButtonOverlay floatingActionButtonOverlay = new FloatingActionButtonOverlay();
 
     public static QrCreatorFragment newInstance() {
         QrCreatorFragment fragment = new QrCreatorFragment();
@@ -45,13 +44,6 @@ public class QrCreatorFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        floatingActionButtonOverlay.attach(getActivity());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        floatingActionButtonOverlay.animateEntry(getActivity());
     }
 
     @Override

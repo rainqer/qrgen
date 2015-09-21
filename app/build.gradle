@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -30,11 +31,18 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile appcompat
     compile butterknife
+    compile dagger
     compile ottoBus
     compile rxAndroid
     compile rxJava
     compile supportDesign
     compile qrZxing
+
+    apt daggerCompiler
+    apt lombok
+
+    provided lombok
+    provided javaxAnnotations
 
     testCompile assertj
     testCompile junit4
