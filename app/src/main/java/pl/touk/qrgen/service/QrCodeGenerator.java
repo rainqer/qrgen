@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.client.android.encode.QRCodeEncoder;
 
+import rx.Observable;
+
 public abstract class QrCodeGenerator {
-    private QRCodeEncoder encoder;
-    protected static final int DEFAULT_QR_SIZE = 300;
+
+    static final String TAG = "QrCodeGenerator";
     private final Integer qrSize;
+    protected static final int DEFAULT_QR_SIZE = 300;
 
     public QrCodeGenerator() {
         this(null);
@@ -21,13 +25,13 @@ public abstract class QrCodeGenerator {
         this.qrSize = qrSize;
     }
 
-    public Bitmap generate(@NonNull Context context, String content) throws WriterException {
-        initEncoder(context, content);
-        return encoder.encodeAsBitmap();
+
+    public Observable<Bitmap> generate(@NonNull Context context, String content) throws WriterException {
+        return Observable.from(new GeneratedBitmap(createEncoder(context, content)));
     }
 
-    private void initEncoder(@NonNull Context context, String data) throws WriterException {
-        encoder = new QRCodeEncoder(context, buildInitIntent(data), getQrSize(), false);
+    private QRCodeEncoder createEncoder(@NonNull Context context, String data) throws WriterException {
+        return new QRCodeEncoder(context, buildInitIntent(data), getQrSize(), false);
     }
 
     private Intent buildInitIntent(String data) {

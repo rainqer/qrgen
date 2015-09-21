@@ -2,10 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">@color/lime_dark</item>
-        <item name="android:colorPrimaryDark">@color/lime_very_dark</item>
+        <item name="colorPrimary">@color/lime_dark</item>
+        <item name="colorPrimaryDark">@color/lime_very_dark</item>
         <item name="android:textColorPrimary">@color/lime_very_light</item>
-        <item name="android:colorAccent">@color/lime_very_dark</item>
+        <item name="colorAccent">@color/lime_dark</item>
     </style>
 
     <style name="lime_tabs">
@@ -13,6 +13,14 @@
         <item name="tabTextColor">@color/lime_very_light</item>
         <item name="tabSelectedTextColor">@color/lime_very_dark</item>
         <item name="tabIndicatorColor">@color/lime_very_dark</item>
+    </style>
+
+    <style name="floating_action_button">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_gravity">bottom|right</item>
+        <item name="android:layout_marginRight">@dimen/fab_margin</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
     </style>
 
 </resources>

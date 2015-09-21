@@ -28,8 +28,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile butterknife
     compile appcompat
+    compile butterknife
+    compile ottoBus
+    compile rxAndroid
+    compile rxJava
     compile supportDesign
     compile qrZxing
 

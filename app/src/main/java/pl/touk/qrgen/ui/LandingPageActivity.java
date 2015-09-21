@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.ui.common.LandingPageChangedListener;
 
 public class LandingPageActivity extends AppCompatActivity {
 
@@ -34,6 +35,7 @@ public class LandingPageActivity extends AppCompatActivity {
         ButterKnife.bind(mSectionsPagerAdapter, this);
         viewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new LandingPageChangedListener());
     }
 
     @Override
@@ -57,5 +59,6 @@ public class LandingPageActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(mSectionsPagerAdapter);
+        viewPager.clearOnPageChangeListeners();
     }
 }
