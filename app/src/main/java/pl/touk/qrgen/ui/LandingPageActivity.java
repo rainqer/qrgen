@@ -16,6 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.DaggerLandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
@@ -34,7 +35,7 @@ public class LandingPageActivity extends AppCompatActivity {
     @Inject Bus bus;
     @Inject AvailableCodesListFragment availableCodesListFragment;
     @Inject ScanningFragment scanningFragment;
-    private LandingPagerAdapter mSectionsPagerAdapter;
+//    @Inject LandingPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,8 @@ public class LandingPageActivity extends AppCompatActivity {
     }
 
     private void setupPager() {
-        mSectionsPagerAdapter = new LandingPagerAdapter(this, availableCodesListFragment, scanningFragment);
-        viewPager.setAdapter(mSectionsPagerAdapter);
+//        mSectionsPagerAdapter = new LandingPagerAdapter(this, availableCodesListFragment, scanningFragment);
+//        viewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(landingPageChangedListener);
     }
@@ -96,7 +97,7 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(mSectionsPagerAdapter);
+//        ButterKnife.unbind(mSectionsPagerAdapter);
         viewPager.clearOnPageChangeListeners();
     }
 
