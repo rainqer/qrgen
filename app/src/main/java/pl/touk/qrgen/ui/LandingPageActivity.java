@@ -12,17 +12,17 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerLandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
+import pl.touk.qrgen.dagger.LandingActivityPagerAdapterModule;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.common.LandingPageChangedListener;
-import pl.touk.qrgen.ui.generation.AvailableCodesListFragment;
-import pl.touk.qrgen.ui.scaning.ScanningFragment;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class LandingPageActivity extends AppCompatActivity {
@@ -33,9 +33,7 @@ public class LandingPageActivity extends AppCompatActivity {
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
     @Inject LandingPageChangedListener landingPageChangedListener;
     @Inject Bus bus;
-    @Inject AvailableCodesListFragment availableCodesListFragment;
-    @Inject ScanningFragment scanningFragment;
-//    @Inject LandingPagerAdapter mSectionsPagerAdapter;
+    @Inject LandingPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +42,9 @@ public class LandingPageActivity extends AppCompatActivity {
 
         LandingActivityComponent component = DaggerLandingActivityComponent.builder()
                 .qrGenComponent(QrGenApplication.component(this))
+                .landingActivityPagerAdapterModule(new LandingActivityPagerAdapterModule(this))
                 .build();
         component.inject(this);
-//        component = LandingActivityComponent.builder()
-//                .build();
-//        component.inject(this);
-//        QrGenApplication.component(this).inject(this);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -58,8 +53,7 @@ public class LandingPageActivity extends AppCompatActivity {
     }
 
     private void setupPager() {
-//        mSectionsPagerAdapter = new LandingPagerAdapter(this, availableCodesListFragment, scanningFragment);
-//        viewPager.setAdapter(mSectionsPagerAdapter);
+        viewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(landingPageChangedListener);
     }
@@ -97,7 +91,7 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ButterKnife.unbind(mSectionsPagerAdapter);
+        ButterKnife.unbind(mSectionsPagerAdapter);
         viewPager.clearOnPageChangeListeners();
     }
 

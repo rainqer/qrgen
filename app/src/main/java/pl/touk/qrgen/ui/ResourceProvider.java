@@ -1,8 +1,8 @@
 package pl.touk.qrgen.ui;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import javax.inject.Inject;
-
 import pl.touk.qrgen.dagger.ForApplication;
 
 public class ResourceProvider {
@@ -15,7 +15,7 @@ public class ResourceProvider {
     }
 
     public int getColor(int colorResId) {
-        return context.getColor(colorResId);
+        return ContextCompat.getColor(context, colorResId);
     }
 
     public String getString(int stringResId) {

@@ -22,14 +22,8 @@ import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
         }
 )
 public interface LandingActivityComponent extends QrGenComponent {
-//        void inject(LandingPageChangedListener landingPageChangedListener);
-//        void inject(LandingPagerAdapter landingPageActivity);
-//        @LandingActivityScope FragmentManager providesFragmentManager();
-//        @LandingActivityScope LandingPagerAdapter providesLandingPagerAdapter();
-        void inject(QrGenApplication application);
+        @LandingActivityScope LandingPagerAdapter providesLandingPagerAdapter();
         void inject(LandingPageActivity landingPageActivity);
-//        void inject(AvailableCodeTranslationsListAdapter availableCodeTranslationsListAdapter);
-//        void inject(AvailableCodesListFragment availableCodesListFragment);
-//        void inject(ScanningFragment scanningFragment);
-//        void inject(FloatingActionButtonOverlay floatingActionButtonOverlay);
+        void inject(AvailableCodesListFragment availableCodesListFragment);
+        void inject(ScanningFragment scanningFragment);
 }

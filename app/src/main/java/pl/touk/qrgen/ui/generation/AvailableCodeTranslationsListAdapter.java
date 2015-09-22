@@ -14,8 +14,6 @@ import pl.touk.qrgen.ui.ResourceProvider;
 
 public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
-//    private final int selectedTranslationViewBackground;
-//    private final int idleTranslationViewBackground;
     private int selectedTranslationViewIndex = 0;
 
     private final QrCodeTranslation[] availableCodeTranslations = {
@@ -24,9 +22,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
     };
 
     @Inject
-    public AvailableCodeTranslationsListAdapter(ResourceProvider resourceProvider) {
-//        selectedTranslationViewBackground = resourceProvider.getColor(android.R.color.background_dark);
-//        idleTranslationViewBackground = resourceProvider.getColor(android.R.color.background_light);
+    public AvailableCodeTranslationsListAdapter() {
     }
 
     @Override
@@ -52,12 +48,6 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
                     : translation.getTranslationViewAndBind(LayoutInflater.from(parent.getContext()));
         return convertView;
     }
-
-//    private int getBackgroundColorResIdForPosition(int position) {
-//        return position == selectedTranslationViewIndex
-//                ? selectedTranslationViewBackground
-//                : idleTranslationViewBackground;
-//    }
 
     @NonNull
     public QrCodeTranslation getActiveCodeTranslation() {
