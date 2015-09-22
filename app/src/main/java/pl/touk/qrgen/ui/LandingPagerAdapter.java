@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -22,16 +23,18 @@ public class LandingPagerAdapter extends FragmentPagerAdapter {
 
     private String[] titles;
 
-    public LandingPagerAdapter(@NonNull FragmentActivity activity, LandingPageFragmentWithTitle...fragments) {
-        super(activity.getSupportFragmentManager());
+    public LandingPagerAdapter(@NonNull FragmentManager fragmentManager,
+                               @NonNull ResourceProvider resourceProvider,
+                               @NonNull LandingPageFragmentWithTitle...fragments) {
+        super(fragmentManager);
+        initTitles(resourceProvider, fragments);
         this.fragments = fragments;
-        initTitles(activity);
     }
 
-    private void initTitles(Context context) {
+    private void initTitles(ResourceProvider resourceProvider, LandingPageFragmentWithTitle[] fragments) {
         List<String> listOfTitles = new ArrayList<>();
         for (LandingPageFragmentWithTitle fragmentWithTitle : fragments) {
-            listOfTitles.add(context.getResources().getString(fragmentWithTitle.getTitleResId()));
+            listOfTitles.add(resourceProvider.getString(fragmentWithTitle.getTitleResId()));
         }
         titles = listOfTitles.toArray(new String[fragments.length]);
     }

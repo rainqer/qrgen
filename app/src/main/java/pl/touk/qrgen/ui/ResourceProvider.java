@@ -17,4 +17,8 @@ public class ResourceProvider {
     public int getColor(int colorResId) {
         return context.getColor(colorResId);
     }
+
+    public String getString(int stringResId) {
+        return context.getString(stringResId);
+    }
 }

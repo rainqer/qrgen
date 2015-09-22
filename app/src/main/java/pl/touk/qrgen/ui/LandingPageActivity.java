@@ -16,6 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.common.LandingPageChangedListener;
@@ -39,7 +40,15 @@ public class LandingPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
-        QrGenApplication.component(this).inject(this);
+
+        LandingActivityComponent component = DaggerLandingActivityComponent.builder()
+                .qrGenComponent(QrGenApplication.component(this))
+                .build();
+        component.inject(this);
+//        component = LandingActivityComponent.builder()
+//                .build();
+//        component.inject(this);
+//        QrGenApplication.component(this).inject(this);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
