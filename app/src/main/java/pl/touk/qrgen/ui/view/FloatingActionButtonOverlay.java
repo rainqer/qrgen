@@ -9,13 +9,24 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.squareup.otto.Bus;
+
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
 
 public class FloatingActionButtonOverlay {
 
     @Bind(R.id.floating_action_button) FloatingActionButton floatingActionButton;
+    @Inject Bus bus;
+
+    @Inject
+    public FloatingActionButtonOverlay() {
+    }
 
     public void attach(Activity activity) {
         View view = createView(activity);
@@ -63,5 +74,10 @@ public class FloatingActionButtonOverlay {
             }
         });
         floatingActionButton.startAnimation(anim);
+    }
+
+    @OnClick(R.id.floating_action_button)
+    public void floatingButtonClicked() {
+        bus.post(new GenerateCodeButtonClickedEvent());
     }
 }

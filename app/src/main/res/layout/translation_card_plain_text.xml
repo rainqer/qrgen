@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/lime_translation_card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/list_with_padding">
+
+        <TextView
+            android:text="@string/translation_subtitle"
+            android:textSize="@dimen/translation_card_subtitle_text_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@string/translation_plain_text_title"
+            android:textSize="@dimen/translation_card_title_text_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+
+        <EditText
+            android:id="@+id/translation_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:maxLines="4"
+            android:textSize="@dimen/translation_card_content_text_size"
+            android:hint="@string/translation_plain_text_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/edit_text_style"
+            android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

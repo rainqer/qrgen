@@ -19,6 +19,8 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.common.LandingPageChangedListener;
+import pl.touk.qrgen.ui.generation.AvailableCodesListFragment;
+import pl.touk.qrgen.ui.scaning.ScanningFragment;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class LandingPageActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class LandingPageActivity extends AppCompatActivity {
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
     @Inject LandingPageChangedListener landingPageChangedListener;
     @Inject Bus bus;
+    @Inject AvailableCodesListFragment availableCodesListFragment;
+    @Inject ScanningFragment scanningFragment;
     private LandingPagerAdapter mSectionsPagerAdapter;
 
     @Override
@@ -44,8 +48,7 @@ public class LandingPageActivity extends AppCompatActivity {
     }
 
     private void setupPager() {
-        mSectionsPagerAdapter = new LandingPagerAdapter(this);
-        ButterKnife.bind(mSectionsPagerAdapter, this);
+        mSectionsPagerAdapter = new LandingPagerAdapter(this, availableCodesListFragment, scanningFragment);
         viewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(landingPageChangedListener);

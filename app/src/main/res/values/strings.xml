@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">QrGen</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_section1">Generate QR</string>
+    <string name="title_section2">Scan QR</string>
     <string name="action_settings">Settings</string>
+
+    <string name="translation_subtitle">Generate a QR code from</string>
+    <!-- plain text to qr code-->
+    <string name="translation_plain_text_title">Plain text</string>
+    <string name="translation_plain_text_label">Content :</string>
+    <string name="translation_plain_text_hint">Your text here ...</string>
 </resources>

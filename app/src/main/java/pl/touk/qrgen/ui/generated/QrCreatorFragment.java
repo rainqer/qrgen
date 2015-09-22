@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui;
+package pl.touk.qrgen.ui.generated;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,7 +16,6 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.service.InsertQrIntoViewAction;
 import pl.touk.qrgen.service.QrCodeGenerator;
 import pl.touk.qrgen.service.QrPlainTextCodeGenerator;
-import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -36,9 +35,9 @@ public class QrCreatorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_qr_creator, container, false);
-        ButterKnife.bind(this, rootView);
-        return rootView;
+        View content = inflater.inflate(R.layout.fragment_qr_creator, container, false);
+        ButterKnife.bind(this, content);
+        return content;
     }
 
     @Override

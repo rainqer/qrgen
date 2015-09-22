@@ -1,4 +1,4 @@
 package pl.touk.qrgen.events;
 
-public class ScanCodePageSelectedEvent extends QrGenAppEvent {
+public class ScanCodePageSelectedEvent extends QrGenPagerEvent {
 }

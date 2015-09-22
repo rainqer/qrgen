@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/lime_dark</item>
         <item name="colorPrimaryDark">@color/lime_very_dark</item>
         <item name="android:textColorPrimary">@color/lime_very_light</item>
+        <item name="android:actionModeBackground">@color/lime_very_dark</item>
         <item name="colorAccent">@color/lime_dark</item>
     </style>
 
@@ -21,6 +22,30 @@
         <item name="android:layout_gravity">bottom|right</item>
         <item name="android:layout_marginRight">@dimen/fab_margin</item>
         <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+    </style>
+
+    <style name="lime_translation_card" parent="CardView.Light">
+        <item name="android:layout_marginTop">@dimen/translation_card_margin</item>
+        <item name="android:layout_marginBottom">@dimen/translation_card_margin</item>
+        <item name="cardCornerRadius">@dimen/translation_card_corner</item>
+        <item name="elevation">@dimen/translation_card_elevation</item>
+    </style>
+
+    <style name="list_with_padding">
+        <item name="android:paddingTop">@dimen/translation_card_padding</item>
+        <item name="android:paddingLeft">@dimen/translation_card_padding</item>
+        <item name="android:paddingBottom">@dimen/translation_card_padding</item>
+        <item name="android:paddingRight">@dimen/translation_card_padding</item>
+    </style>
+
+    <style name="card_view_list">
+        <item name="android:padding">@dimen/available_translations_list_padding</item>
+        <item name="android:dividerHeight">@dimen/available_translations_list_space</item>
+        <item name="android:divider">@color/safe_transparent</item>
+    </style>
+
+    <style name="edit_text_style">
+        <item name="android:textColor">@color/text_dark</item>
     </style>
 
 </resources>

@@ -1,41 +1,61 @@
 package pl.touk.qrgen.ui;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
-import butterknife.BindString;
-import pl.touk.qrgen.R;
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.touk.qrgen.ui.generation.AvailableCodesListFragment;
+import pl.touk.qrgen.ui.scaning.ScanningFragment;
 
 public class LandingPagerAdapter extends FragmentPagerAdapter {
 
-    @BindString(R.string.title_section1) String titlePage1;
-    @BindString(R.string.title_section2) String titlePage2;
+    private final LandingPageFragmentWithTitle[] fragments;
+//    = {
+//            new AvailableCodesListFragment(),
+//            new ScanningFragment()
+//    };
 
-    public LandingPagerAdapter(@NonNull FragmentActivity activity) {
+    private String[] titles;
+
+    public LandingPagerAdapter(@NonNull FragmentActivity activity, LandingPageFragmentWithTitle...fragments) {
         super(activity.getSupportFragmentManager());
+        this.fragments = fragments;
+        initTitles(activity);
+    }
+
+    private void initTitles(Context context) {
+        List<String> listOfTitles = new ArrayList<>();
+        for (LandingPageFragmentWithTitle fragmentWithTitle : fragments) {
+            listOfTitles.add(context.getResources().getString(fragmentWithTitle.getTitleResId()));
+        }
+        titles = listOfTitles.toArray(new String[fragments.length]);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return QrCreatorFragment.newInstance();
+        return inRange(position)
+                ? fragments[position]
+                : null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return fragments.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return titlePage1;
-            case 1:
-                return titlePage2;
-        }
-        return null;
+        return inRange(position)
+                ? titles[position]
+                : null;
+    }
+
+    private boolean inRange(int position) {
+        return position < fragments.length;
     }
 }

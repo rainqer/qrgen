@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager;
 import com.squareup.otto.Bus;
 import javax.inject.Inject;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
-import pl.touk.qrgen.events.QrGenAppEvent;
+import pl.touk.qrgen.events.QrGenPagerEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 
 public class LandingPageChangedListener implements ViewPager.OnPageChangeListener {
@@ -30,7 +30,7 @@ public class LandingPageChangedListener implements ViewPager.OnPageChangeListene
 
     }
 
-    private QrGenAppEvent getPageChangedEvent(int position) {
+    private QrGenPagerEvent getPageChangedEvent(int position) {
         return position == 0 ? new GenerateCodePageSelectedEvent() : new ScanCodePageSelectedEvent();
     }
 }
