@@ -24,7 +24,8 @@ import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class LandingPageActivity extends AppCompatActivity implements LandingActivityComponentProvider {
 
-    @Bind(R.id.pager)ViewPager viewPager;
+    public static final String TAG = "LandingPageActivity";
+    @Bind(R.id.pager) ViewPager viewPager;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.tool_bar) Toolbar toolbar;
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;

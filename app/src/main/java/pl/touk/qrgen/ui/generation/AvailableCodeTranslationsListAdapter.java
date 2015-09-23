@@ -18,6 +18,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
     private final QrCodeTranslation[] availableCodeTranslations = {
             new QrCodePlainTextTranslation(),
+            new QrCodePlainTextTranslation(),
             new QrCodePlainTextTranslation()
     };
 

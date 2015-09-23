@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
@@ -15,11 +16,13 @@ import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
 import pl.touk.qrgen.ui.LandingActivityComponentProvider;
+import pl.touk.qrgen.ui.ResourceProvider;
 
 public class AvailableCodesListFragment extends Fragment {
 
     @Inject Bus bus;
     @Inject AvailableCodeTranslationsListAdapter availableCodeTranslationsListAdapter;
+    @Inject ResourceProvider resourceProvider;
     @Bind(R.id.translations_list) ListView availableTranslationsList;
 
     @Override
@@ -48,6 +51,14 @@ public class AvailableCodesListFragment extends Fragment {
         Intent showGeneratedCodeIntent = availableCodeTranslationsListAdapter
                 .getActiveCodeTranslation()
                 .getIntentToActivityWithTranslation(getActivity());
-        getActivity().startActivity(showGeneratedCodeIntent);
+        if (showGeneratedCodeIntent != null) {
+            getActivity().startActivity(showGeneratedCodeIntent);
+        } else {
+            Toast.makeText(
+                    getActivity(),
+                    resourceProvider.getString(R.string.translation_plain_text_error),
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

@@ -7,7 +7,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import rx.android.schedulers.AndroidSchedulers;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @RunWith(RobolectricGradleTestRunner.class)
 public class QrPlainTextCodeGeneratorTest {
@@ -20,7 +23,9 @@ public class QrPlainTextCodeGeneratorTest {
         QrCodeGenerator generator = new QrPlainTextCodeGenerator();
 
         // when
-        Bitmap bitmap = generator.generate(RuntimeEnvironment.application, TEST_CONTENT);
+        Bitmap bitmap = generator.generate(RuntimeEnvironment.application, TEST_CONTENT)
+                .toBlocking()
+                .first();
 
         // then
         assertThat(bitmap).isNotNull();
@@ -35,7 +40,9 @@ public class QrPlainTextCodeGeneratorTest {
         QrCodeGenerator generator = new QrPlainTextCodeGenerator(customSize);
 
         // when
-        Bitmap bitmap = generator.generate(RuntimeEnvironment.application, TEST_CONTENT);
+        Bitmap bitmap = generator.generate(RuntimeEnvironment.application, TEST_CONTENT)
+                .toBlocking()
+                .first();
 
         // then
         assertThat(bitmap).isNotNull();

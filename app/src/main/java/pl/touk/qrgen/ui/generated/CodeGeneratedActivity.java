@@ -8,6 +8,8 @@ import pl.touk.qrgen.R;
 
 public class CodeGeneratedActivity extends FragmentActivity {
 
+    public static final String TRANSLATION_CONTENT_KEY = "translationContent";
+
     public static Intent getIntent(Context context) {
         return new Intent(context, CodeGeneratedActivity.class);
     }

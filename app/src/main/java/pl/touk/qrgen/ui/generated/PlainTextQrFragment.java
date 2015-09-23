@@ -21,14 +21,14 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-public class QrCreatorFragment extends Fragment {
+public class PlainTextQrFragment extends Fragment {
 
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     private QrCodeGenerator qrCodeGenerator = new QrPlainTextCodeGenerator();
     private Subscription qrCodeGenerationSubscription = Subscriptions.empty();
 
-    public static QrCreatorFragment newInstance() {
-        QrCreatorFragment fragment = new QrCreatorFragment();
+    public static PlainTextQrFragment newInstance() {
+        PlainTextQrFragment fragment = new PlainTextQrFragment();
         return fragment;
     }
 
@@ -69,9 +69,17 @@ public class QrCreatorFragment extends Fragment {
     }
 
     private void tryLaunchingAndSubscribingOnQrGeneration() throws WriterException {
-        qrCodeGenerationSubscription = qrCodeGenerator.generate(getActivity(), "aaa")
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new InsertQrIntoViewAction(qrCodeImageView));
+        String userStringForTranslation = extractPlainTextFromIntent();
+        if (userStringForTranslation != null) {
+            qrCodeGenerationSubscription = qrCodeGenerator
+                    .generate(getActivity(), userStringForTranslation)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new InsertQrIntoViewAction(qrCodeImageView));
+        }
+    }
+
+    private String extractPlainTextFromIntent() {
+        return getActivity().getIntent().getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
     }
 }

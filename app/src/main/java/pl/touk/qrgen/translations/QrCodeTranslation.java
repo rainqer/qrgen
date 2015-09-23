@@ -10,6 +10,6 @@ import android.view.View;
 public interface QrCodeTranslation {
     @NonNull View getTranslationViewAndBind(LayoutInflater inflater);
     @Nullable View getBoundView();
-    @NonNull Intent getIntentToActivityWithTranslation(Context context);
+    @Nullable Intent getIntentToActivityWithTranslation(Context context);
     boolean isBound();
 }

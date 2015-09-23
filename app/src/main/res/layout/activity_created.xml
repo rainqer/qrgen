@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragment_area"
-        android:name="pl.touk.qrgen.ui.generated.QrCreatorFragment"
+        android:name="pl.touk.qrgen.ui.generated.PlainTextQrFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </FrameLayout>
