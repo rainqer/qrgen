@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme"
         android:name=".QrGenApplication">
         <activity
-            android:name=".ui.LandingPageActivity"
+            android:name=".ui.qrselect.LandingPageActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -20,6 +20,7 @@
         </activity>
 
         <activity android:name=".ui.generated.CodeGeneratedActivity"/>
+        <activity android:name=".ui.details.DetailsPageActivity"/>
 
     </application>
 

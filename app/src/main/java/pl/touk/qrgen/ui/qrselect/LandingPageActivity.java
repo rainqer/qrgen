@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui;
+package pl.touk.qrgen.ui.qrselect;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,10 +15,7 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerLandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityPagerAdapterModule;
-import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
-import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.common.LandingPageChangedListener;
-import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class LandingPageActivity extends AppCompatActivity implements LandingActivityComponentProvider {
 
@@ -28,9 +23,7 @@ public class LandingPageActivity extends AppCompatActivity implements LandingAct
     @Bind(R.id.pager) ViewPager viewPager;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
     @Bind(R.id.tool_bar) Toolbar toolbar;
-    @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
     @Inject LandingPageChangedListener landingPageChangedListener;
-    @Inject Bus bus;
     @Inject LandingPagerAdapter sectionsPagerAdapter;
     private LandingActivityComponent component;
 
@@ -47,7 +40,6 @@ public class LandingPageActivity extends AppCompatActivity implements LandingAct
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        floatingActionButtonOverlay.attach(this);
         setupPager();
     }
 
@@ -69,19 +61,6 @@ public class LandingPageActivity extends AppCompatActivity implements LandingAct
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        bus.register(this);
-        floatingActionButtonOverlay.showButtonWithAnimation(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        bus.unregister(this);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -97,15 +76,5 @@ public class LandingPageActivity extends AppCompatActivity implements LandingAct
         super.onDestroy();
         ButterKnife.unbind(sectionsPagerAdapter);
         viewPager.clearOnPageChangeListeners();
-    }
-
-    @Subscribe
-    public void onGenerateCodePageSelected(GenerateCodePageSelectedEvent event) {
-        floatingActionButtonOverlay.showButtonWithAnimation(this);
-    }
-
-    @Subscribe
-    public void onGenerateCodePageSelected(ScanCodePageSelectedEvent event) {
-        floatingActionButtonOverlay.hideButtonWithAnimation(this);
     }
 }

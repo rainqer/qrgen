@@ -4,20 +4,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 
 import butterknife.Bind;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.ui.details.DetailsPageActivity;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
 
 public class QrCodePlainTextTranslation implements QrCodeTranslation {
 
     private static final int PLAIN_TEXT_TRANSLATION_CARD_RES_ID = R.layout.translation_card_plain_text;
     private View boundView;
-    @Bind(R.id.translation_content) EditText editText;
+    @Bind(R.id.plain_text_image) ImageView plainTextImage;
+    @BindString(R.string.translation_plain_transition) String plainTextTransition;
 
     @NonNull
     @Override
@@ -41,9 +46,16 @@ public class QrCodePlainTextTranslation implements QrCodeTranslation {
     @Nullable
     @Override
     public Intent getIntentToActivityWithTranslation(Context context) {
-        return editText != null
-                ? CodeGeneratedActivity.getIntent(context)
-                    .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, editText.getText().toString())
-                : null;
+        return CodeGeneratedActivity.getIntent(context);
+    }
+
+    @Override
+    public void launchActivityWithDetails(AppCompatActivity activity) {
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                        plainTextImage,
+                        plainTextTransition
+                );
+        activity.startActivity(DetailsPageActivity.getIntent(activity), options.toBundle());
     }
 }

@@ -5,6 +5,7 @@
     <color name="text_dark">#444444</color>
     <color name="lime_dark">#C0CA33</color>
     <color name="lime_very_dark">#827717</color>
+    <color name="lime">#D4E157</color>
     <color name="lime_very_light">#F9FBE7</color>
     <color name="lime_light">#F0F4C3</color>
     <color name="safe_transparent">#01000000</color>

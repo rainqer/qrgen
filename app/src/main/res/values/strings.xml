@@ -5,10 +5,11 @@
     <string name="title_section2">Scan QR</string>
     <string name="action_settings">Settings</string>
 
-    <string name="translation_plain_text_error">Something went wrong, please try again.</string>
+    <string name="translation_plain_text_error">You haven\'t filled all the fields for your QR code.</string>
 
     <string name="translation_subtitle">Generate a QR code from</string>
     <!-- plain text to qr code-->
+    <string name="translation_plain_transition">plain_text_transition_to_details</string>
     <string name="translation_plain_text_title">Plain text</string>
     <string name="translation_plain_text_label">Content :</string>
     <string name="translation_plain_text_hint">Your text here ...</string>

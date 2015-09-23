@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui;
+package pl.touk.qrgen.ui.qrselect;
 
 import pl.touk.qrgen.dagger.LandingActivityComponent;
 
