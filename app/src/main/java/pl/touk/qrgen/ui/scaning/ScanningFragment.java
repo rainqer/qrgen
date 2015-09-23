@@ -1,18 +1,20 @@
 package pl.touk.qrgen.ui.scaning;
 
-import javax.inject.Inject;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import pl.touk.qrgen.R;
-import pl.touk.qrgen.ui.LandingPageFragmentWithTitle;
+import pl.touk.qrgen.ui.LandingActivityComponentProvider;
 
-public class ScanningFragment extends LandingPageFragmentWithTitle {
-
-    @Inject
-    public ScanningFragment() {
-    }
-
+public class ScanningFragment extends Fragment {
+    @Nullable
     @Override
-    public int getTitleResId() {
-        return R.string.title_section2;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View content = super.onCreateView(inflater, container, savedInstanceState);
+        ((LandingActivityComponentProvider) getActivity()).getComponent().inject(this);
+        return content;
     }
 }

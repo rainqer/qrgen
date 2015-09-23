@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lime_light">
+
+    <fragment
+        android:id="@+id/fragment_area"
+        android:name="pl.touk.qrgen.ui.generated.QrCreatorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>
+

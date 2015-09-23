@@ -7,12 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-
 import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
@@ -25,7 +22,7 @@ import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.common.LandingPageChangedListener;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
-public class LandingPageActivity extends AppCompatActivity {
+public class LandingPageActivity extends AppCompatActivity implements LandingActivityComponentProvider {
 
     @Bind(R.id.pager)ViewPager viewPager;
     @Bind(R.id.tab_layout) TabLayout tabLayout;
@@ -33,14 +30,15 @@ public class LandingPageActivity extends AppCompatActivity {
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
     @Inject LandingPageChangedListener landingPageChangedListener;
     @Inject Bus bus;
-    @Inject LandingPagerAdapter mSectionsPagerAdapter;
+    @Inject LandingPagerAdapter sectionsPagerAdapter;
+    private LandingActivityComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
 
-        LandingActivityComponent component = DaggerLandingActivityComponent.builder()
+        component = DaggerLandingActivityComponent.builder()
                 .qrGenComponent(QrGenApplication.component(this))
                 .landingActivityPagerAdapterModule(new LandingActivityPagerAdapterModule(this))
                 .build();
@@ -52,8 +50,13 @@ public class LandingPageActivity extends AppCompatActivity {
         setupPager();
     }
 
+    public LandingActivityComponent getComponent() {
+        return component;
+    }
+
     private void setupPager() {
-        viewPager.setAdapter(mSectionsPagerAdapter);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.postInvalidate();
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(landingPageChangedListener);
     }
@@ -91,7 +94,7 @@ public class LandingPageActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(mSectionsPagerAdapter);
+        ButterKnife.unbind(sectionsPagerAdapter);
         viewPager.clearOnPageChangeListeners();
     }
 

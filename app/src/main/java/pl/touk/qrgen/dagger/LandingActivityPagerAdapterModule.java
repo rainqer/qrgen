@@ -5,8 +5,6 @@ import dagger.Provides;
 import pl.touk.qrgen.ui.LandingPageActivity;
 import pl.touk.qrgen.ui.LandingPagerAdapter;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.generation.AvailableCodesListFragment;
-import pl.touk.qrgen.ui.scaning.ScanningFragment;
 
 @Module
 public final class LandingActivityPagerAdapterModule {
@@ -19,13 +17,9 @@ public final class LandingActivityPagerAdapterModule {
 
     @LandingActivityScope
     @Provides
-    LandingPagerAdapter providesLandingPagerAdapter(ResourceProvider resourceProvider,
-                                                    AvailableCodesListFragment availableCodesListFragment,
-                                                    ScanningFragment scanningFragment) {
+    LandingPagerAdapter providesLandingPagerAdapter(ResourceProvider resourceProvider) {
         return new LandingPagerAdapter(
                 activity.getSupportFragmentManager(),
-                resourceProvider,
-                availableCodesListFragment,
-                scanningFragment);
+                resourceProvider);
     }
 }
