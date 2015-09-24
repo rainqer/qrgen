@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import javax.inject.Inject;
-import pl.touk.qrgen.translations.QrCodePlainTextTranslation;
-import pl.touk.qrgen.translations.QrCodeTranslation;
+import pl.touk.qrgen.translations.QrCodePlainTextType;
+import pl.touk.qrgen.translations.QrCodeType;
 
 public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
-    private final QrCodeTranslation[] availableCodeTranslations = {
-            new QrCodePlainTextTranslation(),
-            new QrCodePlainTextTranslation(),
-            new QrCodePlainTextTranslation()
+    private final QrCodeType[] availableCodeTranslations = {
+            new QrCodePlainTextType(),
+            new QrCodePlainTextType(),
+            new QrCodePlainTextType()
     };
 
     @Inject
@@ -39,14 +39,14 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        QrCodeTranslation translation = availableCodeTranslations[position];
+        QrCodeType translation = availableCodeTranslations[position];
         convertView =  translation.isBound()
-                    ? translation.getBoundView()
-                    : translation.getTranslationViewAndBind(LayoutInflater.from(parent.getContext()));
+                    ? translation.getBoundSelectionView()
+                    : translation.getTypeSelectionViewAndBind(LayoutInflater.from(parent.getContext()));
         return convertView;
     }
 
     public void launchTranslationDetails(AppCompatActivity activity, int position) {
-        availableCodeTranslations[position].launchActivityWithDetails(activity);
+        availableCodeTranslations[position].launchActivityWithDetailsForm(activity);
     }
 }

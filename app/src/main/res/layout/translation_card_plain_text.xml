@@ -20,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/btn_star_big_on"/>
+            android:src="@drawable/ic_create_black_36dp"/>
 
         <TextView
             android:id="@+id/top_title"
@@ -45,7 +45,7 @@
             android:layout_below="@+id/title"
             android:layout_alignParentLeft="true"
             android:text="@string/translation_plain_text_hint"
-            android:textSize="@dimen/translation_card_content_text_size"
+            android:textSize="@dimen/translation_card_description_text_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/translation_card_inner_margin"/>

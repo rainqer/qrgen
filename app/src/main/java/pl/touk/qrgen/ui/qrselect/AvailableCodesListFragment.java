@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.squareup.otto.Bus;
 import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,5 +32,4 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
         availableCodeTranslationsListAdapter
                 .launchTranslationDetails((LandingPageActivity) getActivity(), position);
     }
-
 }

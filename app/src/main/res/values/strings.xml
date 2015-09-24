@@ -11,6 +11,5 @@
     <!-- plain text to qr code-->
     <string name="translation_plain_transition">plain_text_transition_to_details</string>
     <string name="translation_plain_text_title">Plain text</string>
-    <string name="translation_plain_text_label">Content :</string>
-    <string name="translation_plain_text_hint">Your text here ...</string>
+    <string name="translation_plain_text_hint">Enter simple text and turn it into a QR code.</string>
 </resources>

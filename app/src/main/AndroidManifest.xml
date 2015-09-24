@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.generated.CodeGeneratedActivity"/>
-        <activity android:name=".ui.details.DetailsPageActivity"/>
+        <activity android:name=".ui.details.DetailsPageActivity"
+            android:parentActivityName=".ui.qrselect.LandingPageActivity"/>
+        <activity android:name=".ui.generated.CodeGeneratedActivity"
+            android:parentActivityName=".ui.details.DetailsPageActivity"/>
 
     </application>
 
