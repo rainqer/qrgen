@@ -9,8 +9,14 @@
 
     <string name="translation_subtitle">Generate a QR code from</string>
     <!-- plain text to qr code-->
-    <string name="translation_plain_transition">plain_text_transition_to_details</string>
+    <string name="translation_plain_text_transition">plain_text_transition_to_details</string>
     <string name="translation_plain_text_title">Plain text</string>
     <string name="translation_plain_text_content">Enter simple text and turn it into a QR code.</string>
     <string name="translation_plain_text_hint">Enter simple text and turn it into a QR code.</string>
+
+    <!-- url to qr code-->
+    <string name="translation_url_transition">url_transition_to_details</string>
+    <string name="translation_url_title">Web Link</string>
+    <string name="translation_url_content">Create a QR code that leads directly to a web site.</string>
+    <string name="translation_url_hint">Enter url and turn it into a QR code.</string>
 </resources>

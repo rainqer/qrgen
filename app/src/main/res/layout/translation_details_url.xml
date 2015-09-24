@@ -6,14 +6,14 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@id/card_icon_plain_text"
-        android:transitionName="@string/translation_plain_text_transition"
+        android:id="@id/card_icon_url"
+        android:transitionName="@string/translation_url_transition"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/generation_form_icon_margin"
-        android:src="@drawable/ic_create_black_36dp"/>
+        android:src="@drawable/ic_link_black_36dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:id="@+id/qr_code_type_title"
             android:layout_below="@+id/qr_code_type_top_title"
             android:layout_alignParentLeft="true"
-            android:text="@string/translation_plain_text_title"
+            android:text="@string/translation_url_title"
             android:textSize="@dimen/translation_card_title_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         <EditText
             android:layout_below="@+id/qr_code_type_title"
             android:id="@+id/qr_code_content"
-            android:hint="@string/translation_plain_text_hint"
+            android:hint="@string/translation_url_content"
             android:textSize="@dimen/translation_card_content_text_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

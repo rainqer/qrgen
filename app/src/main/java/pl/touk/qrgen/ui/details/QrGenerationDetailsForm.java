@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import pl.touk.qrgen.R;
+import pl.touk.qrgen.ui.ResourceProvider;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
 
 public abstract class QrGenerationDetailsForm extends Fragment {
 
     @Inject Bus bus;
+    @Inject
+    ResourceProvider resourceProvider;
 
     public abstract void setupLaunchIntent(Intent intent);
 
@@ -39,5 +44,13 @@ public abstract class QrGenerationDetailsForm extends Fragment {
     public void onPause() {
         super.onPause();
         bus.unregister(this);
+    }
+
+    void showError() {
+        Toast.makeText(
+                getActivity(),
+                resourceProvider.getString(R.string.translation_plain_text_error),
+                Toast.LENGTH_SHORT
+        ).show();
     }
 }

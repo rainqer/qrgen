@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/qr_code_type_icon"
-            android:transitionName="@string/translation_plain_transition"
+            android:transitionName="@string/translation_plain_text_transition"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_width="wrap_content"

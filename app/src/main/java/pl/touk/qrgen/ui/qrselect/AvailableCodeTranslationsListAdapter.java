@@ -14,8 +14,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.translations.QrCodePlainTextType;
-import pl.touk.qrgen.ui.translations.QrCodeType;
+import pl.touk.qrgen.ui.qr.QrCodePlainTextType;
+import pl.touk.qrgen.ui.qr.QrCodeType;
+import pl.touk.qrgen.ui.qr.QrCodeUrlType;
 
 public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
@@ -25,8 +26,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
     public AvailableCodeTranslationsListAdapter(ResourceProvider resourceProvider) {
         availableCodeTypes = new QrCodeType[]{
                 new QrCodePlainTextType(resourceProvider),
-                new QrCodePlainTextType(resourceProvider),
-                new QrCodePlainTextType(resourceProvider)
+                new QrCodeUrlType(resourceProvider),
         };
     }
 
@@ -84,6 +84,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
             title = ButterKnife.findById(view, R.id.qr_code_type_title);
             description = ButterKnife.findById(view, R.id.qr_code_type_content);
             image = ButterKnife.findById(view, R.id.qr_code_type_icon);
+            image.setId(qrCodeType.getDrawableViewId());
         }
     }
 }

@@ -19,5 +19,4 @@ public interface DetailsActivityComponent extends QrGenComponent {
         @DetailsActivityScope QrGenerationDetailsFormProvider providesDetailsActivityScope();
         void inject(DetailsPageActivity detailsPageActivity);
         void inject(QrGenerationDetailsForm fragment);
-        void inject(PlainTextDetailsFormFragment fragment);
 }

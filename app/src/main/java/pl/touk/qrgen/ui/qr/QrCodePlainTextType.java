@@ -1,5 +1,6 @@
-package pl.touk.qrgen.ui.translations;
+package pl.touk.qrgen.ui.qr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -7,15 +8,14 @@ import android.widget.ImageView;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.details.DetailsPageActivity;
 import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProviderFactory;
 
-public class QrCodePlainTextType implements QrCodeType {
+public class QrCodePlainTextType extends QrCodeType {
 
     private final String plainTextTransition;
 
     public QrCodePlainTextType(ResourceProvider resourceProvider) {
-        plainTextTransition = resourceProvider.getString(R.string.translation_plain_transition);
+        plainTextTransition = resourceProvider.getString(R.string.translation_plain_text_transition);
     }
 
     @Override
@@ -39,14 +39,22 @@ public class QrCodePlainTextType implements QrCodeType {
     }
 
     @Override
-    public void launchActivityWithDetailsForm(AppCompatActivity activity, ImageView animationStartPoint) {
-        Bundle options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity,
-                        animationStartPoint,
-                        plainTextTransition
-                ).toBundle();
-        options.putInt(QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE, QrGenerationDetailsFormProviderFactory.PLAIN_TEXT.ordinal());
-        activity.startActivity(DetailsPageActivity.getIntent(activity), options);
+    public int getDrawableViewId() {
+        return R.id.card_icon_plain_text;
+    }
+
+    @Override
+    Bundle provideTransitionOptions(AppCompatActivity activity, ImageView animationStartPoint) {
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,
+                animationStartPoint,
+                plainTextTransition
+        ).toBundle();
+    }
+
+    @Override
+    Intent prepareIntentForDetailsActivity(Intent intent) {
+        return intent.putExtra(QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE,
+                QrGenerationDetailsFormProviderFactory.PLAIN_TEXT.ordinal());
     }
 }
