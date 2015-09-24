@@ -15,41 +15,42 @@
 
         <ImageView
             android:id="@+id/qr_code_type_icon"
-            android:transitionName="@string/translation_plain_text_transition"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:src="@drawable/ic_create_black_36dp"/>
 
-        <TextView
-            android:id="@+id/qr_code_type_top_title"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            tools:text="@string/translation_subtitle"
-            android:textSize="@dimen/translation_card_subtitle_text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/qr_code_type_title"
-            android:layout_below="@+id/qr_code_type_top_title"
-            android:layout_alignParentLeft="true"
-            tools:text="@string/translation_plain_text_title"
-            android:textSize="@dimen/translation_card_title_text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
-
-        <TextView
-            android:id="@+id/qr_code_type_content"
-            android:layout_below="@+id/qr_code_type_title"
-            android:layout_alignParentLeft="true"
-            tools:text="@string/translation_plain_text_content"
-            android:textSize="@dimen/translation_card_description_text_size"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/qr_code_type_top_title"
+                tools:text="@string/translation_subtitle"
+                android:textSize="@dimen/translation_card_subtitle_text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/qr_code_type_title"
+                android:transitionName="@string/translation_plain_text_transition"
+                tools:text="@string/translation_plain_text_title"
+                android:textSize="@dimen/translation_card_title_text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+
+            <TextView
+                android:id="@+id/qr_code_type_content"
+                tools:text="@string/translation_plain_text_content"
+                android:textSize="@dimen/translation_card_description_text_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

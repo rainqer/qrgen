@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.details.DetailsPageActivity;
@@ -16,11 +17,12 @@ public abstract class QrCodeType {
     abstract public int getTitleResId();
     abstract public int getDescriptionResId();
     abstract public int getDrawableResId();
-    abstract public int getDrawableViewId();
-    abstract Bundle provideTransitionOptions(AppCompatActivity activity, ImageView animationStartPoint);
+    abstract public int getTransitionViewId();
+    abstract public String getDrawableViewTransitionName();
+    abstract Bundle provideTransitionOptions(AppCompatActivity activity, TextView animationStartPoint);
     abstract Intent prepareIntentForDetailsActivity(Intent intent);
 
-    public void launchActivityWithDetailsForm(AppCompatActivity activity, ImageView animationStartPoint) {
+    public void launchActivityWithDetailsForm(AppCompatActivity activity, TextView animationStartPoint) {
         activity.startActivity(
                 prepareIntentForDetailsActivity(DetailsPageActivity.getIntent(activity)),
                 provideTransitionOptions(activity,animationStartPoint));

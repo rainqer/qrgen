@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="card_icon_plain_text" type="id"/>
-    <item name="card_icon_url" type="id"/>
+    <item name="card_plain_text_transition_view" type="id"/>
+    <item name="card_url_transition_view" type="id"/>
 </resources>

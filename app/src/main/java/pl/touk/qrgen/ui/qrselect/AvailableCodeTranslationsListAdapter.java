@@ -1,5 +1,6 @@
 package pl.touk.qrgen.ui.qrselect;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -68,7 +69,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
 
     public void launchTranslationDetails(AppCompatActivity activity, View view) {
         ViewHolder viewHolder = ((ViewHolder) view.getTag());
-        viewHolder.qrCodeType.launchActivityWithDetailsForm(activity, viewHolder.image);
+        viewHolder.qrCodeType.launchActivityWithDetailsForm(activity, viewHolder.title);
     }
 
     private static class ViewHolder {
@@ -84,7 +85,10 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
             title = ButterKnife.findById(view, R.id.qr_code_type_title);
             description = ButterKnife.findById(view, R.id.qr_code_type_content);
             image = ButterKnife.findById(view, R.id.qr_code_type_icon);
-            image.setId(qrCodeType.getDrawableViewId());
+            title.setId(qrCodeType.getTransitionViewId());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                title.setTransitionName(qrCodeType.getDrawableViewTransitionName());
+            }
         }
     }
 }

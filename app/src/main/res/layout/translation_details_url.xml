@@ -6,8 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@id/card_icon_url"
-        android:transitionName="@string/translation_url_transition"
+        android:id="@id/card_url_transition_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
@@ -23,8 +22,6 @@
 
         <TextView
             android:id="@+id/qr_code_type_top_title"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:text="@string/translation_subtitle"
             android:textSize="@dimen/translation_card_subtitle_text_size"
             android:layout_width="wrap_content"
@@ -32,8 +29,7 @@
 
         <TextView
             android:id="@+id/qr_code_type_title"
-            android:layout_below="@+id/qr_code_type_top_title"
-            android:layout_alignParentLeft="true"
+            android:transitionName="@string/translation_url_transition"
             android:text="@string/translation_url_title"
             android:textSize="@dimen/translation_card_title_text_size"
             android:layout_width="wrap_content"
@@ -41,7 +37,6 @@
             android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
 
         <EditText
-            android:layout_below="@+id/qr_code_type_title"
             android:id="@+id/qr_code_content"
             android:hint="@string/translation_url_content"
             android:textSize="@dimen/translation_card_content_text_size"
