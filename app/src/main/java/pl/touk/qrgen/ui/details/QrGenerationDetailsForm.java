@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
+
 import javax.inject.Inject;
-import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
+
+import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
 
 public abstract class QrGenerationDetailsForm extends Fragment {
 
     @Inject Bus bus;
 
-    public abstract Intent getIntentToActivityWithGeneratedQrCode();
+    public abstract void setupLaunchIntent(Intent intent);
+
+    void launchActivityWithQrCode() {
+        Intent intent = CodeGeneratedActivity.getIntent(getActivity());
+        setupLaunchIntent(intent);
+        startActivity(intent);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -31,10 +39,5 @@ public abstract class QrGenerationDetailsForm extends Fragment {
     public void onPause() {
         super.onPause();
         bus.unregister(this);
-    }
-
-    @Subscribe
-    public void generateCodeButtonClicked(GenerateCodeButtonClickedEvent event) {
-        startActivity(getIntentToActivityWithGeneratedQrCode());
     }
 }

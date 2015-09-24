@@ -27,12 +27,12 @@
 
     <EditText
         android:layout_below="@+id/qr_code_type_title"
-        android:id="@+id/qr_code_type_content"
-        android:text="@string/translation_plain_text_content"
+        android:id="@+id/qr_code_content"
+        android:hint="@string/translation_plain_text_hint"
         android:textSize="@dimen/translation_card_content_text_size"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
+        android:layout_height="wrap_content"
+        style="@style/edit_text_style"
+        android:layout_marginBottom="@dimen/details_plain_text_bottom_margin"/>
 
 </LinearLayout>

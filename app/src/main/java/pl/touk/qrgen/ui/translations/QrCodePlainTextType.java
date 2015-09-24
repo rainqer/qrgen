@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProviderFactory;
 import pl.touk.qrgen.ui.details.DetailsPageActivity;
+import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProviderFactory;
 
 public class QrCodePlainTextType implements QrCodeType {
 

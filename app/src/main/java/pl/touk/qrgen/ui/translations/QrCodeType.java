@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import pl.touk.qrgen.R;
 
 public interface QrCodeType {
-    public static final int QR_TYPE_CARD_RES_ID = R.layout.qr_code_type_card;
+    int QR_TYPE_CARD_RES_ID = R.layout.qr_code_type_card;
     int getSubTitleResId();
     int getTitleResId();
     int getDescriptionResId();

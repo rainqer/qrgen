@@ -1,6 +1,7 @@
 package pl.touk.qrgen.dagger;
 
 import dagger.Component;
+import pl.touk.qrgen.ui.details.PlainTextDetailsFormFragment;
 import pl.touk.qrgen.ui.details.QrGenerationDetailsForm;
 import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProvider;
 import pl.touk.qrgen.ui.details.DetailsPageActivity;
@@ -18,4 +19,5 @@ public interface DetailsActivityComponent extends QrGenComponent {
         @DetailsActivityScope QrGenerationDetailsFormProvider providesDetailsActivityScope();
         void inject(DetailsPageActivity detailsPageActivity);
         void inject(QrGenerationDetailsForm fragment);
+        void inject(PlainTextDetailsFormFragment fragment);
 }
