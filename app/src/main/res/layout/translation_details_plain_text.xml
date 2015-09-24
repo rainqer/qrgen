@@ -7,7 +7,7 @@
     style="@style/list_with_padding">
 
     <TextView
-        android:id="@+id/top_title"
+        android:id="@+id/qr_code_type_top_title"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:text="@string/translation_subtitle"
@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_below="@+id/top_title"
+        android:id="@+id/qr_code_type_title"
+        android:layout_below="@+id/qr_code_type_top_title"
         android:layout_alignParentLeft="true"
         android:text="@string/translation_plain_text_title"
         android:textSize="@dimen/translation_card_title_text_size"
@@ -26,9 +26,9 @@
         android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
 
     <EditText
-        android:layout_below="@+id/title"
-        android:id="@+id/content"
-        android:text="@string/translation_plain_text_hint"
+        android:layout_below="@+id/qr_code_type_title"
+        android:id="@+id/qr_code_type_content"
+        android:text="@string/translation_plain_text_content"
         android:textSize="@dimen/translation_card_content_text_size"
         android:layout_width="match_parent"
         android:layout_height="0dp"

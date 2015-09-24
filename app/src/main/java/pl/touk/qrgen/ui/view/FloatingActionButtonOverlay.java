@@ -48,31 +48,12 @@ public class FloatingActionButtonOverlay {
         animateEntry(context);
     }
 
-    public void hideButtonWithAnimation(Context context) {
-        animateExit(context);
+    public void hideButton() {
+        floatingActionButton.setVisibility(View.GONE);
     }
 
     private void animateEntry(Context context) {
         Animation anim = AnimationUtils.loadAnimation(context, R.anim.fab_slide_in_bottom);
-        floatingActionButton.startAnimation(anim);
-    }
-
-    private void animateExit(Context context) {
-        Animation anim = AnimationUtils.loadAnimation(context, R.anim.fab_slide_out_bottom);
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                floatingActionButton.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
         floatingActionButton.startAnimation(anim);
     }
 

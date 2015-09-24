@@ -2,20 +2,20 @@ package pl.touk.qrgen.dagger;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.touk.qrgen.generation.QrCodeGeneration;
+import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProvider;
 
 @Module
 public final class DetailsActivityQrCodeGenerationModule {
 
-    private final QrCodeGeneration generation;
+    private final QrGenerationDetailsFormProvider generation;
 
-    public DetailsActivityQrCodeGenerationModule(QrCodeGeneration generation) {
+    public DetailsActivityQrCodeGenerationModule(QrGenerationDetailsFormProvider generation) {
         this.generation = generation;
     }
 
     @DetailsActivityScope
     @Provides
-    QrCodeGeneration providesQrCodeGeneration() {
+    QrGenerationDetailsFormProvider providesQrCodeGeneration() {
         return generation;
     }
 }

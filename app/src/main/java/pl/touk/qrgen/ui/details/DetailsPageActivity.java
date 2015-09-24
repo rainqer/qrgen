@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,9 +13,6 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerDetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityQrCodeGenerationModule;
-import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
-import pl.touk.qrgen.generation.Generation;
-import pl.touk.qrgen.generation.QrCodeGeneration;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class DetailsPageActivity extends AppCompatActivity {
@@ -25,8 +20,7 @@ public class DetailsPageActivity extends AppCompatActivity {
     public static final String TAG = "LandingPageActivity";
     @Bind(R.id.tool_bar) Toolbar toolbar;
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
-    @Inject Bus bus;
-    @Inject QrCodeGeneration qrCodeGeneration;
+    @Inject QrGenerationDetailsFormProvider qrGenerationDetailsFormProvider;
     private DetailsActivityComponent component;
 
     public static Intent getIntent(Context context) {
@@ -52,11 +46,11 @@ public class DetailsPageActivity extends AppCompatActivity {
         component.inject(this);
     }
 
-    private QrCodeGeneration extractQrGenerationTypeFromIntent() {
+    private QrGenerationDetailsFormProvider extractQrGenerationTypeFromIntent() {
         int ordinal = getIntent().getIntExtra(
-                Generation.QR_GENERATION_TYPE,
-                Generation.QR_GENERATION_DEFAULT_ORDINAL);
-        return Generation.values()[ordinal].get();
+                QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE,
+                QrGenerationDetailsFormProviderFactory.DEFAULT);
+        return QrGenerationDetailsFormProviderFactory.values()[ordinal].get();
     }
 
     private void setUpUi() {
@@ -65,6 +59,16 @@ public class DetailsPageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         floatingActionButtonOverlay.attach(this);
+        addDetailsFormFragment();
+    }
+
+    private void addDetailsFormFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(
+                        R.id.fragment_container,
+                        qrGenerationDetailsFormProvider.getGenerationFormFragment()
+                ).commit();
     }
 
     public DetailsActivityComponent getComponent() {
@@ -75,19 +79,11 @@ public class DetailsPageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         floatingActionButtonOverlay.showButtonWithAnimation(this);
-        bus.register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        floatingActionButtonOverlay.hideButtonWithAnimation(this);
-        bus.unregister(this);
+        floatingActionButtonOverlay.hideButton();
     }
-
-    @Subscribe
-    public void generateCodeButtonClicked(GenerateCodeButtonClickedEvent event) {
-        startActivity(qrCodeGeneration.getIntentToActivityWithTranslation(this));
-    }
-
 }

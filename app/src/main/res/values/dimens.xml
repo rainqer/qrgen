@@ -14,4 +14,5 @@
     <dimen name="translation_card_content_text_size">22sp</dimen>
     <dimen name="available_translations_list_padding">5dp</dimen>
     <dimen name="available_translations_list_space">4dp</dimen>
+    <dimen name="generation_form_icon_margin">8dp</dimen>
 </resources>

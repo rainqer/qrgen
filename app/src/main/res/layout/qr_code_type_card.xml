@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,37 +14,38 @@
         style="@style/list_with_padding">
 
         <ImageView
-            android:id="@+id/plain_text_image"
+            android:id="@+id/qr_code_type_icon"
             android:transitionName="@string/translation_plain_transition"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_create_black_36dp"/>
+            tools:src="@drawable/ic_create_black_36dp"/>
 
         <TextView
-            android:id="@+id/top_title"
+            android:id="@+id/qr_code_type_top_title"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:text="@string/translation_subtitle"
+            tools:text="@string/translation_subtitle"
             android:textSize="@dimen/translation_card_subtitle_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/title"
-            android:layout_below="@+id/top_title"
+            android:id="@+id/qr_code_type_title"
+            android:layout_below="@+id/qr_code_type_top_title"
             android:layout_alignParentLeft="true"
-            android:text="@string/translation_plain_text_title"
+            tools:text="@string/translation_plain_text_title"
             android:textSize="@dimen/translation_card_title_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/translation_card_inner_margin"/>
 
         <TextView
-            android:layout_below="@+id/title"
+            android:id="@+id/qr_code_type_content"
+            android:layout_below="@+id/qr_code_type_title"
             android:layout_alignParentLeft="true"
-            android:text="@string/translation_plain_text_hint"
+            tools:text="@string/translation_plain_text_content"
             android:textSize="@dimen/translation_card_description_text_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

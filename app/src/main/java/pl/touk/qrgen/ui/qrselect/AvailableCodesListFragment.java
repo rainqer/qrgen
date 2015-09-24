@@ -2,6 +2,7 @@ package pl.touk.qrgen.ui.qrselect;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,20 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        availableTranslationsList.setAdapter(null);
+        availableTranslationsList.setOnItemClickListener(null);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         availableCodeTranslationsListAdapter
-                .launchTranslationDetails((LandingPageActivity) getActivity(), position);
+                .launchTranslationDetails((LandingPageActivity) getActivity(), view);
     }
 }
