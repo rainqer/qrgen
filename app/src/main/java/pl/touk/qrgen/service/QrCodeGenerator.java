@@ -37,8 +37,12 @@ public abstract class QrCodeGenerator {
     private Intent buildInitIntent(String data) {
         Intent encoderIntent = new Intent(Intents.Encode.ACTION);
         applyEncodeType(encoderIntent);
-        encoderIntent.putExtra(Intents.Encode.DATA, data);
+        applyData(encoderIntent, data);
         return encoderIntent;
+    }
+
+    protected void applyData(Intent intent, String data) {
+        intent.putExtra(Intents.Encode.DATA, data);
     }
 
     private int getQrSize() {
