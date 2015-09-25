@@ -8,18 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
-
-import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
-import pl.touk.qrgen.ui.ResourceProvider;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
+import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 
 public class UrlDetailsFormFragment extends QrGenerationDetailsForm {
 
@@ -41,7 +38,8 @@ public class UrlDetailsFormFragment extends QrGenerationDetailsForm {
     @Nullable
     @Override
     public void setupLaunchIntent(Intent intent) {
-        intent.putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, userContent.getText().toString());
+        intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.URL.ordinal())
+                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, userContent.getText().toString());
     }
 
     @Subscribe

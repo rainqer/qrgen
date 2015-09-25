@@ -11,19 +11,21 @@ import rx.Observable;
 
 public class PlainTextQrFragment extends QrFragment {
 
-    private QrCodeGenerator qrCodeGenerator = new QrPlainTextCodeGenerator();
-
     @Nullable
     @Override
     protected Observable<Bitmap> getQrGenerationObservable() throws WriterException {
         String userStringForTranslation = extractPlainTextFromIntent();
         return userStringForTranslation != null
-                ? qrCodeGenerator.generate(getActivity(), userStringForTranslation)
+                ? getQrCodeGenerator().generate(getActivity(), userStringForTranslation)
                 : null;
     }
 
     private String extractPlainTextFromIntent() {
         return getActivity().getIntent()
                 .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+    }
+
+    protected QrCodeGenerator getQrCodeGenerator() {
+        return new QrPlainTextCodeGenerator();
     }
 }

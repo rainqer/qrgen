@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProviderFactory;
+import pl.touk.qrgen.ui.details.QrGenerationDetailsFormFactory;
 
 public class QrCodePlainTextType extends QrCodeType {
 
@@ -59,7 +59,7 @@ public class QrCodePlainTextType extends QrCodeType {
 
     @Override
     Intent prepareIntentForDetailsActivity(Intent intent) {
-        return intent.putExtra(QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE,
-                QrGenerationDetailsFormProviderFactory.PLAIN_TEXT.ordinal());
+        return intent.putExtra(QrGenerationDetailsFormFactory.QR_GENERATION_PROVIDER_TYPE,
+                QrGenerationDetailsFormFactory.PLAIN_TEXT.ordinal());
     }
 }

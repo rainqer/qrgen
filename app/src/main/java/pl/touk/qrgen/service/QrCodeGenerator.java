@@ -15,7 +15,7 @@ public abstract class QrCodeGenerator {
 
     static final String TAG = "QrCodeGenerator";
     private final Integer qrSize;
-    protected static final int DEFAULT_QR_SIZE = 300;
+    protected static final int DEFAULT_QR_SIZE = 600;
 
     public QrCodeGenerator() {
         this(null);

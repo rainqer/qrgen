@@ -3,9 +3,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment_area"
-        android:name="pl.touk.qrgen.ui.generated.PlainTextQrFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

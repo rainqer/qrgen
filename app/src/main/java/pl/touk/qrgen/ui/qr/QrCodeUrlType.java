@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.details.QrGenerationDetailsFormProviderFactory;
+import pl.touk.qrgen.ui.details.QrGenerationDetailsFormFactory;
 
 public class QrCodeUrlType extends QrCodeType {
 
@@ -60,7 +60,7 @@ public class QrCodeUrlType extends QrCodeType {
     @Override
     Intent prepareIntentForDetailsActivity(Intent intent) {
         return intent.putExtra(
-                QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE,
-                QrGenerationDetailsFormProviderFactory.URL.ordinal());
+                QrGenerationDetailsFormFactory.QR_GENERATION_PROVIDER_TYPE,
+                QrGenerationDetailsFormFactory.URL.ordinal());
     }
 }

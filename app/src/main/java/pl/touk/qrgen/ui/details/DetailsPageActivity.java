@@ -20,7 +20,7 @@ public class DetailsPageActivity extends AppCompatActivity {
     public static final String TAG = "LandingPageActivity";
     @Bind(R.id.tool_bar) Toolbar toolbar;
     @Inject FloatingActionButtonOverlay floatingActionButtonOverlay;
-    @Inject QrGenerationDetailsFormProvider qrGenerationDetailsFormProvider;
+    @Inject QrGenerationDetailsFormFactory qrGenerationDetailsFormFactory;
     private DetailsActivityComponent component;
 
     public static Intent getIntent(Context context) {
@@ -46,11 +46,11 @@ public class DetailsPageActivity extends AppCompatActivity {
         component.inject(this);
     }
 
-    private QrGenerationDetailsFormProvider extractQrGenerationTypeFromIntent() {
+    private QrGenerationDetailsFormFactory extractQrGenerationTypeFromIntent() {
         int ordinal = getIntent().getIntExtra(
-                QrGenerationDetailsFormProviderFactory.QR_GENERATION_PROVIDER_TYPE,
-                QrGenerationDetailsFormProviderFactory.DEFAULT);
-        return QrGenerationDetailsFormProviderFactory.values()[ordinal].get();
+                QrGenerationDetailsFormFactory.QR_GENERATION_PROVIDER_TYPE,
+                QrGenerationDetailsFormFactory.DEFAULT);
+        return QrGenerationDetailsFormFactory.values()[ordinal];
     }
 
     private void setUpUi() {
@@ -67,7 +67,7 @@ public class DetailsPageActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(
                         R.id.fragment_container,
-                        qrGenerationDetailsFormProvider.getGenerationFormFragment()
+                        qrGenerationDetailsFormFactory.get()
                 ).commit();
     }
 

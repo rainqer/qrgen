@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import pl.touk.qrgen.R;
 
+import static pl.touk.qrgen.ui.generated.QrFragmentFactory.DEFAULT;
+import static pl.touk.qrgen.ui.generated.QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE;
+
 public class CodeGeneratedActivity extends FragmentActivity {
 
     public static final String TRANSLATION_CONTENT_KEY = "translationContent";
@@ -18,5 +21,17 @@ public class CodeGeneratedActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_created);
+        applyFragment();
+    }
+
+    private void applyFragment() {
+        int fragmentProviderOrdinal
+                = getIntent().getIntExtra(QR_GENERATION_PROVIDER_TYPE, DEFAULT);
+        QrFragmentFactory fragmentFactory
+                = QrFragmentFactory.values()[fragmentProviderOrdinal];
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_area, fragmentFactory.get())
+                .commit();
     }
 }
