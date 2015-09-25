@@ -2,4 +2,5 @@
 <resources>
     <item name="card_plain_text_transition_view" type="id"/>
     <item name="card_url_transition_view" type="id"/>
+    <item name="card_phone_transition_view" type="id"/>
 </resources>

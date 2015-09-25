@@ -18,5 +18,11 @@
     <string name="translation_url_transition">url_transition_to_details</string>
     <string name="translation_url_title">Web Link</string>
     <string name="translation_url_content">Create a QR code that leads directly to a web site.</string>
-    <string name="translation_url_hint">Enter url and turn it into a QR code.</string>
+    <string name="translation_url_hint">Enter url ...</string>
+
+    <!-- url to qr code-->
+    <string name="translation_phone_transition">phone_transition_to_details</string>
+    <string name="translation_phone_title">Phone Number</string>
+    <string name="translation_phone_content">Create a QR code that acts as a phone number you can dial.</string>
+    <string name="translation_phone_hint">Enter the phone number ... </string>
 </resources>

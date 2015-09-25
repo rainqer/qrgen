@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
+import pl.touk.qrgen.ui.qr.QrCodePhoneType;
 import pl.touk.qrgen.ui.qr.QrCodePlainTextType;
 import pl.touk.qrgen.ui.qr.QrCodeType;
 import pl.touk.qrgen.ui.qr.QrCodeUrlType;
@@ -28,6 +29,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
         availableCodeTypes = new QrCodeType[]{
                 new QrCodePlainTextType(resourceProvider),
                 new QrCodeUrlType(resourceProvider),
+                new QrCodePhoneType(resourceProvider)
         };
     }
 

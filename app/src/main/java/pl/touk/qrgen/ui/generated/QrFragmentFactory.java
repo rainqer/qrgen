@@ -2,7 +2,8 @@ package pl.touk.qrgen.ui.generated;
 
 public enum QrFragmentFactory {
     PLAIN_TEXT,
-    URL;
+    URL,
+    PHONE;
 
     public static final String QR_GENERATION_PROVIDER_TYPE = "qrFragmentProviderType";
     public static final int DEFAULT = 0;
@@ -13,6 +14,8 @@ public enum QrFragmentFactory {
                 return new PlainTextQrFragment();
             case 1 :
                 return new UrlQrFragment();
+            case 2 :
+                return new PhoneQrFragment();
             default :
                 return new PlainTextQrFragment();
         }
