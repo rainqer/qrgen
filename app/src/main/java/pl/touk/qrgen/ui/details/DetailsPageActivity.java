@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.SharedElementCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.transition.Transition;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,14 +36,13 @@ public class DetailsPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        explodeIfPossible();
+        donotAnimateStatusBar();
         setContentView(R.layout.activity_details);
         assembleDaggerComponent();
         setUpUi();
-        extractQrGenerationTypeFromIntent();
     }
 
-    private void explodeIfPossible() {
+    private void donotAnimateStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Transition fade = new Fade();
             fade.excludeTarget(android.R.id.statusBarBackground, true);

@@ -29,7 +29,9 @@
     <!-- export to file-->
     <string name="temporary_export_file_path">qr_generations</string>
     <string name="temporary_export_file_name">qr_code</string>
+    <string name="export">Add to photos</string>
 
     <!-- Share-->
+    <string name="share">Share</string>
     <string name="share_selector_message">Share Qr via</string>
 </resources>

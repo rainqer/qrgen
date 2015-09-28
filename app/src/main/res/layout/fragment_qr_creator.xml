@@ -8,20 +8,28 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/human_readable_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="22sp"/>
 
     <ImageView
         android:id="@+id/qr_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:id="@+id/share"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:src="@drawable/ic_share_black_36dp"/>
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/share"
+        android:text="@string/share"
+        android:drawableLeft="@drawable/ic_share_black_36dp"
+        style="@style/generated_code_options_style"/>
+
+    <Button
+        android:id="@+id/export"
+        android:text="@string/export"
+        android:drawableLeft="@drawable/ic_add_to_photos_black_36dp"
+        style="@style/generated_code_options_style"/>
 
 </LinearLayout>

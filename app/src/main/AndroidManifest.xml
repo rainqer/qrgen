@@ -20,7 +20,8 @@
         </activity>
 
         <activity android:name=".ui.details.DetailsPageActivity"
-            android:parentActivityName=".ui.qrselect.LandingPageActivity"/>
+            android:parentActivityName=".ui.qrselect.LandingPageActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".ui.generated.CodeGeneratedActivity"
             android:parentActivityName=".ui.details.DetailsPageActivity"/>
 
