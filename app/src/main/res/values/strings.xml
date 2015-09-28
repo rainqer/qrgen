@@ -25,4 +25,11 @@
     <string name="translation_phone_title">Phone Number</string>
     <string name="translation_phone_content">Create a QR code that acts as a phone number you can dial.</string>
     <string name="translation_phone_hint">Enter the phone number ... </string>
+
+    <!-- export to file-->
+    <string name="temporary_export_file_path">qr_generations</string>
+    <string name="temporary_export_file_name">qr_code</string>
+
+    <!-- Share-->
+    <string name="share_selector_message">Share Qr via</string>
 </resources>

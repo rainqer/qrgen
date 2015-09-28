@@ -1,6 +1,7 @@
 package pl.touk.qrgen.ui.generated;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,14 @@ import com.google.zxing.WriterException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.touk.qrgen.R;
-import pl.touk.qrgen.service.InsertQrIntoViewAction;
+import pl.touk.qrgen.service.FileExportedBitmap;
+import pl.touk.qrgen.service.ShareAction;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
@@ -26,6 +30,7 @@ public abstract class QrFragment extends Fragment{
 
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     private Subscription qrCodeGenerationSubscription = Subscriptions.empty();
+    private BitmapHolder bitmapHolder = new BitmapHolder();
 
     @Nullable
     protected abstract Observable<Bitmap> getQrGenerationObservable() throws WriterException;
@@ -67,7 +72,36 @@ public abstract class QrFragment extends Fragment{
             qrCodeGenerationSubscription = bitmapGeneration
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new InsertQrIntoViewAction(qrCodeImageView));
+                    .subscribe(bitmapHolder);
+        }
+    }
+
+    @OnClick(R.id.share)
+    public void shareButtonClicked() {
+        if (bitmapHolder.bitmap != null) {
+            getObservableForBitmapExport()
+                    .subscribeOn(Schedulers.computation())
+                    .subscribe(new ShareAction(getActivity()));
+        }
+    }
+
+    private Observable<Uri> getObservableForBitmapExport() {
+        return Observable.from(
+                new FileExportedBitmap(
+                        getString(R.string.temporary_export_file_path),
+                        getString(R.string.temporary_export_file_name),
+                        bitmapHolder.bitmap)
+        );
+    }
+
+    private class BitmapHolder implements Action1<Bitmap> {
+
+        Bitmap bitmap;
+
+        @Override
+        public void call(Bitmap bitmap) {
+            this.bitmap = bitmap;
+            qrCodeImageView.setImageBitmap(bitmap);
         }
     }
 }

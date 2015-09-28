@@ -1,18 +1,30 @@
 package pl.touk.qrgen.service;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-class FileExportedBitmap implements Future<String> {
+public class FileExportedBitmap implements Future<Uri> {
 
     private static final String ERROR_MESSAGE = "Exporting qr bitmap failed";
     private final String filePath;
+    private final String fileName;
+    private final Bitmap bitmap;
     private boolean done;
 
-    public FileExportedBitmap(@NonNull String filePath) {
+    public FileExportedBitmap(@NonNull String filePath, @NonNull String fileName, @NonNull Bitmap bitmap) {
         this.filePath = filePath;
+        this.fileName = fileName;
+        this.bitmap = bitmap;
     }
 
     @Override
@@ -31,53 +43,38 @@ class FileExportedBitmap implements Future<String> {
     }
 
     @Override
-    public String get() {
-        return encode();
+    public Uri get() throws ExecutionException {
+        try {
+            return exportToFile();
+        } catch (IOException e) {
+            throw new ExecutionException(e);
+        }
     }
 
     @Override
-    public String get(long timeout, TimeUnit unit) {
-        return encode();
+    public Uri get(long timeout, TimeUnit unit) throws ExecutionException {
+        try {
+            return exportToFile();
+        } catch (IOException e) {
+            throw new ExecutionException(e);
+        }
     }
 
-    private String encode() {
-//        final File dir = new File(Environment.getExternalStorageDirectory(), super.getResources().getString(R.string.config_external_storage_folder));
-//
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        final File img = new File(dir, this.mNode.name + ".png");
-//        if (img.exists()) {
-//            img.delete();
-//        }
-//        final OutputStream outStream = new FileOutputStream(img);
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-//        outStream.flush();
-//        outStream.close();
-        return "abc";
-    }
+    private Uri exportToFile() throws IOException {
+        final File dir = new File(Environment.getExternalStorageDirectory(), filePath);
 
-//    public void shareimage () {
-//        if (this.mImageDrawableSet == false) {
-//            this.mApplyImageOnDisplay = true;
-//            return;
-//        }
-//
-//        try {
-//            final Bitmap bitmap = getImageBitmap();
-//            if (bitmap == null) {
-//                Toast.makeText(getActivity(), "Something Went Wrong, Please Try Again!1", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            Intent share = new Intent(Intent.ACTION_SEND);
-//            share.setType("image/*");
-//            share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(img));
-//            startActivity(Intent.createChooser(share,"Share via"));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Toast.makeText(getActivity(), "Something Went Wrong, Please Try Again!2", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        final File img = new File(dir, fileName + ".png");
+        if (img.exists()) {
+            img.delete();
+        }
+        final OutputStream outStream = new FileOutputStream(img);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+        outStream.flush();
+        outStream.close();
+        return Uri.fromFile(img);
+    }
 }
