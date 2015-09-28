@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
@@ -22,12 +26,9 @@ import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
 
     @Bind(R.id.qr_code_content) EditText userContent;
+    @Bind(R.id.qr_code_type_top_title) TextView topTitle;
+    @Bind(R.id.qr_code_type_icon) ImageView icon;
     @Inject ResourceProvider resourceProvider;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
@@ -41,6 +42,11 @@ public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((DetailsPageActivity)getActivity()).getComponent().inject(this);
+    }
+
+    @Override
+    protected View[] provideBlinkingViews() {
+        return new View[]{topTitle, icon, userContent};
     }
 
     @Nullable

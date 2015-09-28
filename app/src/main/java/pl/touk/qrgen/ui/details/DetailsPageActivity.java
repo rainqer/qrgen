@@ -2,10 +2,20 @@ package pl.touk.qrgen.ui.details;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.view.MenuItem;
+import android.view.View;
+
+import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
@@ -30,10 +40,21 @@ public class DetailsPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        explodeIfPossible();
         setContentView(R.layout.activity_details);
         assembleDaggerComponent();
         setUpUi();
         extractQrGenerationTypeFromIntent();
+    }
+
+    private void explodeIfPossible() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition fade = new Fade();
+            fade.excludeTarget(android.R.id.statusBarBackground, true);
+            fade.excludeTarget(R.id.tool_bar, true);
+            getWindow().setExitTransition(fade);
+            getWindow().setEnterTransition(fade);
+        }
     }
 
     private void assembleDaggerComponent() {
@@ -85,5 +106,14 @@ public class DetailsPageActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         floatingActionButtonOverlay.hideButton();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            supportFinishAfterTransition();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

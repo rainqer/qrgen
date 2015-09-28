@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
 
@@ -21,6 +23,8 @@ import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 public class PhoneDetailsFormFragment extends QrGenerationDetailsForm {
 
     @Bind(R.id.qr_code_content) EditText userContent;
+    @Bind(R.id.qr_code_type_top_title) TextView topTitle;
+    @Bind(R.id.qr_code_type_icon) ImageView icon;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +44,11 @@ public class PhoneDetailsFormFragment extends QrGenerationDetailsForm {
     public void setupLaunchIntent(Intent intent) {
         intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PHONE.ordinal())
                 .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, userContent.getText().toString());
+    }
+
+    @Override
+    protected View[] provideBlinkingViews() {
+        return new View[] {topTitle, icon, userContent};
     }
 
     @Subscribe
