@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui.qrselect;
+package pl.touk.qrgen.ui.landing;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,7 +13,6 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerLandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityPagerAdapterModule;
-import pl.touk.qrgen.ui.common.LandingPageChangedListener;
 
 public class LandingPageActivity extends AppCompatActivity implements LandingActivityComponentProvider {
 

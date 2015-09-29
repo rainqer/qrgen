@@ -1,10 +1,10 @@
 package pl.touk.qrgen.dagger;
 
 import dagger.Component;
-import pl.touk.qrgen.ui.qrselect.LandingPageActivity;
-import pl.touk.qrgen.ui.qrselect.LandingPagerAdapter;
-import pl.touk.qrgen.ui.qrselect.AvailableCodesListFragment;
-import pl.touk.qrgen.ui.scaning.ScanningFragment;
+import pl.touk.qrgen.ui.landing.LandingPageActivity;
+import pl.touk.qrgen.ui.landing.LandingPagerAdapter;
+import pl.touk.qrgen.ui.landing.AvailableCodesListFragment;
+import pl.touk.qrgen.ui.landing.ScanningFragment;
 
 @LandingActivityScope
 @Component (

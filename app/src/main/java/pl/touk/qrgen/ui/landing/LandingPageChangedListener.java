@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui.common;
+package pl.touk.qrgen.ui.landing;
 
 import android.support.v4.view.ViewPager;
 import com.squareup.otto.Bus;

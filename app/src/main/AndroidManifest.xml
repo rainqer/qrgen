@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.touk.qrgen" >
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:name=".QrGenApplication">
         <activity
-            android:name=".ui.qrselect.LandingPageActivity"
+            android:name=".ui.landing.LandingPageActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -20,11 +25,17 @@
         </activity>
 
         <activity android:name=".ui.details.DetailsPageActivity"
-            android:parentActivityName=".ui.qrselect.LandingPageActivity"
+            android:parentActivityName=".ui.landing.LandingPageActivity"
             android:launchMode="singleTop"/>
         <activity android:name=".ui.generated.CodeGeneratedActivity"
             android:parentActivityName=".ui.details.DetailsPageActivity"/>
-
+        <activity
+            android:name="com.google.zxing.client.android.decode.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
     </application>
 
 </manifest>

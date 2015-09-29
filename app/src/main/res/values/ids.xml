@@ -3,4 +3,8 @@
     <item name="card_plain_text_transition_view" type="id"/>
     <item name="card_url_transition_view" type="id"/>
     <item name="card_phone_transition_view" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decoded" type="id"/>
+    <item name="camera_preview" type="id" />
+    <item name="bounding_view" type="id" />
 </resources>

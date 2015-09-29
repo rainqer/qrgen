@@ -1,13 +1,16 @@
-package pl.touk.qrgen.ui.qrselect;
+package pl.touk.qrgen.ui.landing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.google.zxing.client.android.decode.CaptureActivity;
+
 import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,7 +45,8 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        availableCodeTranslationsListAdapter
-                .launchTranslationDetails((LandingPageActivity) getActivity(), view);
+        startActivity(new Intent(getActivity(), CaptureActivity.class));
+//        availableCodeTranslationsListAdapter
+//                .launchTranslationDetails((LandingPageActivity) getActivity(), view);
     }
 }

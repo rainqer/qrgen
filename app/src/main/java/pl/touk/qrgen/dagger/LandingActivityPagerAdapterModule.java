@@ -2,8 +2,8 @@ package pl.touk.qrgen.dagger;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.touk.qrgen.ui.qrselect.LandingPageActivity;
-import pl.touk.qrgen.ui.qrselect.LandingPagerAdapter;
+import pl.touk.qrgen.ui.landing.LandingPageActivity;
+import pl.touk.qrgen.ui.landing.LandingPagerAdapter;
 import pl.touk.qrgen.ui.ResourceProvider;
 
 @Module

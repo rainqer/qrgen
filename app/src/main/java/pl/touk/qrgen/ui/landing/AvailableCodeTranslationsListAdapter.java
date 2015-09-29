@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui.qrselect;
+package pl.touk.qrgen.ui.landing;
 
 import android.os.Build;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package pl.touk.qrgen.ui.qrselect;
+package pl.touk.qrgen.ui.landing;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
-import pl.touk.qrgen.ui.scaning.ScanningFragment;
 
 public class LandingPagerAdapter extends FragmentPagerAdapter {
 
