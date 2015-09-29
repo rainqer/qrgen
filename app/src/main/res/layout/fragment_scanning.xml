@@ -11,11 +11,4 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         />
-
-    <TextView
-        android:id="@+id/scanText"
-        android:text="Scanning..."
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </TextView>
 </LinearLayout>

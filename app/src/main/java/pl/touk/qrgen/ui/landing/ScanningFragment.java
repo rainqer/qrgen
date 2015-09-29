@@ -1,5 +1,6 @@
 package pl.touk.qrgen.ui.landing;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,26 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
-
 import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
+import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
+import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 
+//TODO needs seperating logic from views
 public class ScanningFragment extends Fragment {
 
     @Inject Bus bus;
@@ -36,7 +34,6 @@ public class ScanningFragment extends Fragment {
     private Camera mCamera;
     private Handler autoFocusHandler;
     private boolean previewing = true;
-    TextView scanText;
     ImageScanner scanner;
 
     static {
@@ -65,8 +62,6 @@ public class ScanningFragment extends Fragment {
     private void initScanner() {
         mCamera = getCameraInstance();
         cameraPreview.addView(new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB));
-        scanText = (TextView)getActivity().findViewById(R.id.scanText);
-        scanText.setText("Scanning...");
         mCamera.setPreviewCallback(previewCb);
         mCamera.startPreview();
         previewing = true;
@@ -154,7 +149,10 @@ public class ScanningFragment extends Fragment {
                 killScanner();
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    scanText.setText("barcode result " + sym.getData());
+                    Intent intent = new Intent(getActivity(), CodeGeneratedActivity.class)
+                            .putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PLAIN_TEXT.ordinal())
+                            .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, sym.getData());
+                    getActivity().startActivity(intent);
                 }
             }
         }

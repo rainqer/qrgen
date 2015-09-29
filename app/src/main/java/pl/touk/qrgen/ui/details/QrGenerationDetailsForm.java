@@ -1,7 +1,7 @@
 package pl.touk.qrgen.ui.details;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
 import com.squareup.otto.Bus;
-
 import javax.inject.Inject;
-
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
 import pl.touk.qrgen.ui.VersionUtil;
@@ -23,6 +20,8 @@ public abstract class QrGenerationDetailsForm extends Fragment {
 
     @Inject Bus bus;
     @Inject ResourceProvider resourceProvider;
+    private final UiFadeIn uiFadeIn = new UiFadeIn();
+    private Handler animationHandler = new Handler();
 
     public abstract void setupLaunchIntent(Intent intent);
 
@@ -41,7 +40,7 @@ public abstract class QrGenerationDetailsForm extends Fragment {
 
     private void initUi() {
         if (VersionUtil.lolipopTransitionsAvailable()) {
-            new Handler().postDelayed(new UiFadeIn(), 800);
+            animationHandler.postDelayed(uiFadeIn, 700);
         } else {
             showAllUi();
         }
@@ -59,6 +58,12 @@ public abstract class QrGenerationDetailsForm extends Fragment {
         bus.unregister(this);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        animationHandler.removeCallbacks(uiFadeIn);
+    }
+
     void showError() {
         Toast.makeText(
                 getActivity(),
@@ -69,20 +74,25 @@ public abstract class QrGenerationDetailsForm extends Fragment {
 
     protected abstract View[] provideBlinkingViews();
 
-    private class UiFadeIn implements Runnable {
-        @Override
-        public void run() {
-            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
-            for (View view : provideBlinkingViews()) {
-                view.startAnimation(fadeIn);
-                view.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
     private void showAllUi() {
         for (View view : provideBlinkingViews()) {
             view.setVisibility(View.VISIBLE);
         }
+    }
+
+    private class UiFadeIn implements Runnable {
+
+        @Override
+        public void run() {
+            Context context = getActivity();
+            if (context != null) {
+                Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fadein);
+                for (View view : provideBlinkingViews()) {
+                    view.startAnimation(fadeIn);
+                    view.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
     }
 }
