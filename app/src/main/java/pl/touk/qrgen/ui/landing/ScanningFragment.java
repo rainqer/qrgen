@@ -1,6 +1,7 @@
 package pl.touk.qrgen.ui.landing;
 
-import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -8,31 +9,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-import com.google.zxing.client.android.decode.CameraManager;
-import com.google.zxing.client.android.decode.CaptureHandler;
-import com.google.zxing.client.android.decode.PreviewCallback;
-import com.google.zxing.client.android.decode.view.BoundingView;
-import com.google.zxing.client.android.decode.view.CameraPreviewView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
+
+import net.sourceforge.zbar.Config;
+import net.sourceforge.zbar.Image;
+import net.sourceforge.zbar.ImageScanner;
+import net.sourceforge.zbar.Symbol;
+import net.sourceforge.zbar.SymbolSet;
+
 import javax.inject.Inject;
-import butterknife.Bind;
+
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
-import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
-import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 
 public class ScanningFragment extends Fragment {
 
-    @Bind(R.id.content_view) RelativeLayout contentView;
     @Inject Bus bus;
-
-    private CameraPreviewView cameraPreview;
-    private CameraManager cameraManager;
-    private Handler captureHandler;
-    private BoundingView boundingView;
 
     @Nullable
     @Override
@@ -43,113 +39,120 @@ public class ScanningFragment extends Fragment {
         return view;
     }
 
-    public static String PUBLIC_STATIC_STRING_IDENTIFIER;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        autoFocusHandler = new Handler();
+        mCamera = getCameraInstance();
 
-    @Subscribe
-    public void scanCodePageSelected(ScanCodePageSelectedEvent event) {
-        init();
-    }
+        /* Instance barcode scanner */
+        scanner = new ImageScanner();
+        scanner.setConfig(0, Config.X_DENSITY, 3);
+        scanner.setConfig(0, Config.Y_DENSITY, 3);
 
-    @Subscribe
-    public void generateCodePageSelected(GenerateCodePageSelectedEvent event) {
-        tearDown();
-    }
+        mPreview = new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB);
+        FrameLayout preview = (FrameLayout)getActivity().findViewById(R.id.cameraPreview);
+        preview.addView(mPreview);
 
-    private void init() {
-        Toast.makeText(getActivity(), "INIT", Toast.LENGTH_SHORT).show();
-        prepareContentView();
-        initializeCamera();
-        initializeCameraPreview();
-        initializeBoundingView();
-    }
+        scanText = (TextView)getActivity().findViewById(R.id.scanText);
 
-    private void tearDown() {
-        Toast.makeText(getActivity(), "TEAR DOWN", Toast.LENGTH_SHORT).show();
-        if (cameraManager != null) {
-            cameraManager.release();
-            cameraManager = null;
-        }
-        if (cameraPreview != null) {
-            cameraPreview.setCameraManager(null);
-            cameraPreview = null;
-        }
-        if (boundingView != null) {
-            boundingView.setCameraManager(null);
-            boundingView = null;
-        }
-        contentView.removeAllViews();
-    }
+        scanButton = (Button)getActivity().findViewById(R.id.ScanButton);
 
-    private void prepareContentView() {
-        contentView.addView(getBoundingView());
-        contentView.addView(getCameraPreviewView());
-    }
-
-    private CameraPreviewView getCameraPreviewView() {
-        //This is the camera SurfaceView
-        cameraPreview = new CameraPreviewView(getActivity());
-        cameraPreview.setId(R.id.camera_preview);
-        cameraPreview.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        return cameraPreview;
-    }
-
-    private BoundingView getBoundingView() {
-        //Displays the bounding content
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-
-        boundingView = new BoundingView(getActivity());
-        boundingView.setId(R.id.bounding_view);
-        boundingView.setLayoutParams(params);
-
-        return boundingView;
-    }
-
-    private void initializeCamera() {
-        cameraManager = new CameraManager();
-        captureHandler = new CaptureHandler(cameraManager, getActivity(), new OnDecoded());
-
-        cameraManager.requestNextFrame(new PreviewCallback(captureHandler, cameraManager));
-    }
-
-    private void initializeCameraPreview() {
-        cameraPreview.setCameraManager(cameraManager);
-    }
-
-    private void initializeBoundingView() {
-        boundingView.setCameraManager(cameraManager);
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (barcodeScanned) {
+                    barcodeScanned = false;
+                    scanText.setText("Scanning...");
+                    mCamera.setPreviewCallback(previewCb);
+                    mCamera.startPreview();
+                    previewing = true;
+                    mCamera.autoFocus(autoFocusCB);
+                }
+            }
+        });
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        bus.register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        bus.unregister(this);
-
-        cameraManager.release();
-    }
-
-    private class OnDecoded implements CaptureHandler.OnDecodedCallback {
-        @Override
-        public void onDecoded(String decodedData) {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, decodedData);
-//            setResult(Activity.RESULT_OK, resultIntent);
-//            finish();
-            Toast.makeText(getActivity(), "lalalal", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        tearDown();
+    public void onDestroyView() {
+        super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    private Camera mCamera;
+    private CameraPreview mPreview;
+    private Handler autoFocusHandler;
+
+    TextView scanText;
+    Button scanButton;
+
+    ImageScanner scanner;
+
+    private boolean barcodeScanned = false;
+    private boolean previewing = true;
+
+    static {
+        System.loadLibrary("iconv");
+    }
+
+    public void onPause() {
+        super.onPause();
+        releaseCamera();
+    }
+
+    /** A safe way to get an instance of the Camera object. */
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open();
+        } catch (Exception e){
+        }
+        return c;
+    }
+
+    private void releaseCamera() {
+        if (mCamera != null) {
+            previewing = false;
+            mCamera.setPreviewCallback(null);
+            mCamera.release();
+            mCamera = null;
+        }
+    }
+
+    private Runnable doAutoFocus = new Runnable() {
+        public void run() {
+            if (previewing)
+                mCamera.autoFocus(autoFocusCB);
+        }
+    };
+
+    Camera.PreviewCallback previewCb = new Camera.PreviewCallback() {
+        public void onPreviewFrame(byte[] data, Camera camera) {
+            Camera.Parameters parameters = camera.getParameters();
+            Camera.Size size = parameters.getPreviewSize();
+
+            Image barcode = new Image(size.width, size.height, "Y800");
+            barcode.setData(data);
+
+            int result = scanner.scanImage(barcode);
+
+            if (result != 0) {
+                previewing = false;
+                mCamera.setPreviewCallback(null);
+                mCamera.stopPreview();
+
+                SymbolSet syms = scanner.getResults();
+                for (Symbol sym : syms) {
+                    scanText.setText("barcode result " + sym.getData());
+                    barcodeScanned = true;
+                }
+            }
+        }
+    };
+
+    // Mimic continuous auto-focusing
+    Camera.AutoFocusCallback autoFocusCB = new Camera.AutoFocusCallback() {
+        public void onAutoFocus(boolean success, Camera camera) {
+            autoFocusHandler.postDelayed(doAutoFocus, 1000);
+        }
+    };
 }
