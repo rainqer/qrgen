@@ -1,6 +1,7 @@
 package pl.touk.qrgen.ui.details;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
+import pl.touk.qrgen.ui.VersionUtil;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
 
 public abstract class QrGenerationDetailsForm extends Fragment {
@@ -34,16 +36,15 @@ public abstract class QrGenerationDetailsForm extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((DetailsPageActivity)getActivity()).getComponent().inject(this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
-                for (View view : provideBlinkingViews()) {
-                    view.startAnimation(fadeIn);
-                    view.setVisibility(View.VISIBLE);
-                }
-            }
-        }, 800);
+        initUi();
+    }
+
+    private void initUi() {
+        if (VersionUtil.lolipopTransitionsAvailable()) {
+            new Handler().postDelayed(new UiFadeIn(), 800);
+        } else {
+            showAllUi();
+        }
     }
 
     @Override
@@ -67,4 +68,21 @@ public abstract class QrGenerationDetailsForm extends Fragment {
     }
 
     protected abstract View[] provideBlinkingViews();
+
+    private class UiFadeIn implements Runnable {
+        @Override
+        public void run() {
+            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fadein);
+            for (View view : provideBlinkingViews()) {
+                view.startAnimation(fadeIn);
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private void showAllUi() {
+        for (View view : provideBlinkingViews()) {
+            view.setVisibility(View.VISIBLE);
+        }
+    }
 }

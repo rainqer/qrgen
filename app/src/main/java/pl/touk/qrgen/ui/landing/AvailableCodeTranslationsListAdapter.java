@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.ui.ResourceProvider;
+import pl.touk.qrgen.ui.VersionUtil;
 import pl.touk.qrgen.ui.qr.QrCodePhoneType;
 import pl.touk.qrgen.ui.qr.QrCodePlainTextType;
 import pl.touk.qrgen.ui.qr.QrCodeType;
@@ -88,7 +89,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
             description = ButterKnife.findById(view, R.id.qr_code_type_content);
             image = ButterKnife.findById(view, R.id.qr_code_type_icon);
             title.setId(qrCodeType.getTransitionViewId());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (VersionUtil.lolipopTransitionsAvailable()) {
                 title.setTransitionName(qrCodeType.getDrawableViewTransitionName());
             }
         }

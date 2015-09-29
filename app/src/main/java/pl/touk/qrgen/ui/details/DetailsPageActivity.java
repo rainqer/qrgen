@@ -19,6 +19,7 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerDetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityQrCodeGenerationModule;
+import pl.touk.qrgen.ui.VersionUtil;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
 public class DetailsPageActivity extends AppCompatActivity {
@@ -43,7 +44,7 @@ public class DetailsPageActivity extends AppCompatActivity {
     }
 
     private void donotAnimateStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (VersionUtil.lolipopTransitionsAvailable()) {
             Transition fade = new Fade();
             fade.excludeTarget(android.R.id.statusBarBackground, true);
             fade.excludeTarget(R.id.tool_bar, true);
