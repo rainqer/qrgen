@@ -1,6 +1,5 @@
 package pl.touk.qrgen.ui.landing;
 
-import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,11 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
@@ -23,12 +23,25 @@ import net.sourceforge.zbar.SymbolSet;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
+import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 
 public class ScanningFragment extends Fragment {
 
     @Inject Bus bus;
+    @Bind(R.id.cameraPreview) FrameLayout cameraPreview;
+    private Camera mCamera;
+    private Handler autoFocusHandler;
+    private boolean previewing = true;
+    TextView scanText;
+    ImageScanner scanner;
+
+    static {
+        System.loadLibrary("iconv");
+    }
 
     @Nullable
     @Override
@@ -39,37 +52,60 @@ public class ScanningFragment extends Fragment {
         return view;
     }
 
+    @Subscribe
+    public void onScanCodeSelected(ScanCodePageSelectedEvent event) {
+        initScanner();
+    }
+
+    @Subscribe
+    public void onGenerateCodeSelected(GenerateCodePageSelectedEvent event) {
+        killScanner();
+    }
+
+    private void initScanner() {
+        mCamera = getCameraInstance();
+        cameraPreview.addView(new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB));
+        scanText = (TextView)getActivity().findViewById(R.id.scanText);
+        scanText.setText("Scanning...");
+        mCamera.setPreviewCallback(previewCb);
+        mCamera.startPreview();
+        previewing = true;
+        mCamera.autoFocus(autoFocusCB);
+    }
+
+    private void killScanner() {
+        previewing = false;
+        if (mCamera != null) {
+            mCamera.setPreviewCallback(null);
+            mCamera.stopPreview();
+        }
+        releaseCamera();
+        cameraPreview.removeAllViews();
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         autoFocusHandler = new Handler();
-        mCamera = getCameraInstance();
 
         /* Instance barcode scanner */
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
 
-        mPreview = new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB);
-        FrameLayout preview = (FrameLayout)getActivity().findViewById(R.id.cameraPreview);
-        preview.addView(mPreview);
+    }
 
-        scanText = (TextView)getActivity().findViewById(R.id.scanText);
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
 
-        scanButton = (Button)getActivity().findViewById(R.id.ScanButton);
-
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (barcodeScanned) {
-                    barcodeScanned = false;
-                    scanText.setText("Scanning...");
-                    mCamera.setPreviewCallback(previewCb);
-                    mCamera.startPreview();
-                    previewing = true;
-                    mCamera.autoFocus(autoFocusCB);
-                }
-            }
-        });
+    @Override
+    public void onPause() {
+        super.onPause();
+        killScanner();
+        bus.unregister(this);
     }
 
     @Override
@@ -78,29 +114,8 @@ public class ScanningFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    private Camera mCamera;
-    private CameraPreview mPreview;
-    private Handler autoFocusHandler;
-
-    TextView scanText;
-    Button scanButton;
-
-    ImageScanner scanner;
-
-    private boolean barcodeScanned = false;
-    private boolean previewing = true;
-
-    static {
-        System.loadLibrary("iconv");
-    }
-
-    public void onPause() {
-        super.onPause();
-        releaseCamera();
-    }
-
     /** A safe way to get an instance of the Camera object. */
-    public static Camera getCameraInstance(){
+    private static Camera getCameraInstance(){
         Camera c = null;
         try {
             c = Camera.open();
@@ -136,14 +151,10 @@ public class ScanningFragment extends Fragment {
             int result = scanner.scanImage(barcode);
 
             if (result != 0) {
-                previewing = false;
-                mCamera.setPreviewCallback(null);
-                mCamera.stopPreview();
-
+                killScanner();
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
                     scanText.setText("barcode result " + sym.getData());
-                    barcodeScanned = true;
                 }
             }
         }
