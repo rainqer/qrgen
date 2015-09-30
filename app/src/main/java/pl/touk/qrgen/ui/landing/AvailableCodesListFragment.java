@@ -12,6 +12,9 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.Components;
+import pl.touk.qrgen.dagger.HasComponent;
+import pl.touk.qrgen.dagger.LandingActivityComponent;
 
 public class AvailableCodesListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
@@ -22,7 +25,7 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View content = inflater.inflate(R.layout.fragment_available_translations, container, false);
         ButterKnife.bind(this, content);
-        ((LandingActivityComponentProvider) getActivity()).getComponent().inject(this);
+        Components.<LandingActivityComponent>from(getActivity()).inject(this);
         availableTranslationsList.setAdapter(availableCodeTranslationsListAdapter);
         availableTranslationsList.setOnItemClickListener(this);
         return content;
@@ -42,7 +45,6 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        startActivity(new Intent(getActivity(), CaptureActivity.class));
         availableCodeTranslationsListAdapter
                 .launchTranslationDetails((LandingPageActivity) getActivity(), view);
     }

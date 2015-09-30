@@ -22,6 +22,6 @@ public abstract class QrCodeType {
     public void launchActivityWithDetailsForm(AppCompatActivity activity, TextView animationStartPoint) {
         activity.startActivity(
                 prepareIntentForDetailsActivity(DetailsPageActivity.getIntent(activity)),
-                provideTransitionOptions(activity,animationStartPoint));
+                provideTransitionOptions(activity, animationStartPoint));
     }
 }

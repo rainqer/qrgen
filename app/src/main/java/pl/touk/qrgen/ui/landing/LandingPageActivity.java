@@ -11,10 +11,12 @@ import butterknife.ButterKnife;
 import pl.touk.qrgen.QrGenApplication;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerLandingActivityComponent;
+import pl.touk.qrgen.dagger.HasComponent;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.dagger.LandingActivityPagerAdapterModule;
 
-public class LandingPageActivity extends AppCompatActivity implements LandingActivityComponentProvider {
+public class LandingPageActivity extends AppCompatActivity
+        implements HasComponent<LandingActivityComponent> {
 
     public static final String TAG = "LandingPageActivity";
     @Bind(R.id.pager) ViewPager viewPager;

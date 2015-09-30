@@ -7,6 +7,8 @@ import android.widget.Toast;
 import com.squareup.otto.Bus;
 import javax.inject.Inject;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.Components;
+import pl.touk.qrgen.dagger.DetailsActivityComponent;
 import pl.touk.qrgen.ui.ResourceProvider;
 import pl.touk.qrgen.ui.common.FadingInFragment;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
@@ -27,7 +29,7 @@ public abstract class QrGenerationDetailsForm extends FadingInFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((DetailsPageActivity)getActivity()).getComponent().inject(this);
+        Components.<DetailsActivityComponent>from(getActivity()).inject(this);
     }
 
     @Override

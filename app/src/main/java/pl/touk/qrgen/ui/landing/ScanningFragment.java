@@ -21,6 +21,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.Components;
+import pl.touk.qrgen.dagger.LandingActivityComponent;
 import pl.touk.qrgen.events.GenerateCodePageSelectedEvent;
 import pl.touk.qrgen.events.ScanCodePageSelectedEvent;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
@@ -45,7 +47,7 @@ public class ScanningFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scanning, null);
         ButterKnife.bind(this, view);
-        ((LandingActivityComponentProvider) getActivity()).getComponent().inject(this);
+        Components.<LandingActivityComponent>from(getActivity()).inject(this);
         return view;
     }
 

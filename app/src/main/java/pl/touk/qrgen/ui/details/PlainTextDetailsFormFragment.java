@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.dagger.Components;
+import pl.touk.qrgen.dagger.DetailsActivityComponent;
 import pl.touk.qrgen.events.GenerateCodeButtonClickedEvent;
 import pl.touk.qrgen.ui.ResourceProvider;
 import pl.touk.qrgen.ui.generated.CodeGeneratedActivity;
@@ -41,7 +43,7 @@ public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((DetailsPageActivity)getActivity()).getComponent().inject(this);
+        Components.<DetailsActivityComponent>from(getActivity()).inject(this);
     }
 
     @Override

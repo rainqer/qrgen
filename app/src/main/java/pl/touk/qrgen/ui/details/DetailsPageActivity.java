@@ -19,10 +19,12 @@ import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.DaggerDetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityComponent;
 import pl.touk.qrgen.dagger.DetailsActivityQrCodeGenerationModule;
+import pl.touk.qrgen.dagger.HasComponent;
 import pl.touk.qrgen.ui.VersionUtil;
 import pl.touk.qrgen.ui.view.FloatingActionButtonOverlay;
 
-public class DetailsPageActivity extends AppCompatActivity {
+public class DetailsPageActivity extends AppCompatActivity
+        implements HasComponent<DetailsActivityComponent> {
 
     public static final String TAG = "LandingPageActivity";
     @Bind(R.id.tool_bar) Toolbar toolbar;
@@ -88,6 +90,7 @@ public class DetailsPageActivity extends AppCompatActivity {
                 ).commit();
     }
 
+    @Override
     public DetailsActivityComponent getComponent() {
         return component;
     }
