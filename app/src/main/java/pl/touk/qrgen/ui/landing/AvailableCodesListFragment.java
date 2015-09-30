@@ -2,6 +2,7 @@ package pl.touk.qrgen.ui.landing;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,6 @@ public class AvailableCodesListFragment extends Fragment implements AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         availableCodeTranslationsListAdapter
-                .launchTranslationDetails((LandingPageActivity) getActivity(), view);
+                .launchTranslationDetails((AppCompatActivity) getActivity(), view);
     }
 }

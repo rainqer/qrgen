@@ -1,17 +1,18 @@
 package pl.touk.qrgen.dagger;
 
+import android.support.v7.app.AppCompatActivity;
+
 import dagger.Module;
 import dagger.Provides;
-import pl.touk.qrgen.ui.landing.LandingPageActivity;
-import pl.touk.qrgen.ui.landing.LandingPagerAdapter;
 import pl.touk.qrgen.ui.ResourceProvider;
+import pl.touk.qrgen.ui.landing.LandingPagerAdapter;
 
 @Module
 public final class LandingActivityPagerAdapterModule {
 
-    private final LandingPageActivity activity;
+    private final AppCompatActivity activity;
 
-    public LandingActivityPagerAdapterModule(LandingPageActivity activity) {
+    public LandingActivityPagerAdapterModule(AppCompatActivity activity) {
         this.activity = activity;
     }
 
