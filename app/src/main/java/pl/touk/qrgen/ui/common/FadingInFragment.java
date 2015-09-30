@@ -12,6 +12,7 @@ import pl.touk.qrgen.ui.VersionUtil;
 
 public abstract class FadingInFragment extends Fragment {
 
+    private static final int DELAY_MILLIS = 700;
     private final UiFadeIn uiFadeIn = new UiFadeIn();
     private Handler animationHandler = new Handler();
     protected abstract View[] provideBlinkingViews();
@@ -24,7 +25,7 @@ public abstract class FadingInFragment extends Fragment {
 
     private void initUi() {
         if (VersionUtil.lolipopTransitionsAvailable()) {
-            animationHandler.postDelayed(uiFadeIn, 700);
+            animationHandler.postDelayed(uiFadeIn, DELAY_MILLIS);
         } else {
             showAllUi();
         }

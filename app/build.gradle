@@ -47,5 +47,6 @@ dependencies {
 
     testCompile assertj
     testCompile junit4
+    testCompile mockito
     testCompile robolectric
 }
