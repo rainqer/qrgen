@@ -34,4 +34,7 @@
     <!-- Share-->
     <string name="share">Share</string>
     <string name="share_selector_message">Share Qr via</string>
+
+    <!-- scan fragment -->
+    <string name="reset">RESET CAMERA</string>
 </resources>

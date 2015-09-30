@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import net.sourceforge.zbar.Config;
@@ -20,6 +22,7 @@ import net.sourceforge.zbar.SymbolSet;
 import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.dagger.Components;
 import pl.touk.qrgen.dagger.LandingActivityComponent;
@@ -32,6 +35,7 @@ import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 public class ScanningFragment extends Fragment {
 
     @Inject Bus bus;
+    @Bind(R.id.resetScannerButton) View resetCameraButton;
     @Bind(R.id.cameraPreview) FrameLayout cameraPreview;
     private Camera mCamera;
     private Handler autoFocusHandler;
@@ -53,6 +57,7 @@ public class ScanningFragment extends Fragment {
 
     @Subscribe
     public void onScanCodeSelected(ScanCodePageSelectedEvent event) {
+        hideResetButton();
         initScanner();
     }
 
@@ -137,6 +142,7 @@ public class ScanningFragment extends Fragment {
         }
     };
 
+    private int VIEW_QR_CODE_TRANSLATION;
     Camera.PreviewCallback previewCb = new Camera.PreviewCallback() {
         public void onPreviewFrame(byte[] data, Camera camera) {
             Camera.Parameters parameters = camera.getParameters();
@@ -154,7 +160,8 @@ public class ScanningFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), CodeGeneratedActivity.class)
                             .putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PLAIN_TEXT.ordinal())
                             .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, sym.getData());
-                    getActivity().startActivity(intent);
+                    VIEW_QR_CODE_TRANSLATION = 11223;
+                    startActivityForResult(intent, VIEW_QR_CODE_TRANSLATION);
                 }
             }
         }
@@ -166,4 +173,26 @@ public class ScanningFragment extends Fragment {
             autoFocusHandler.postDelayed(doAutoFocus, 1000);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == VIEW_QR_CODE_TRANSLATION) {
+            showResetButton();
+        }
+    }
+
+    private void showResetButton() {
+        resetCameraButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideResetButton() {
+        resetCameraButton.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.resetScannerButton)
+    public void resetScannerButtonPressed() {
+        hideResetButton();
+        initScanner();
+    }
 }

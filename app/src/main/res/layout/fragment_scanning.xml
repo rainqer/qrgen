@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/resetScannerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_photo_camera_black_48dp"
+        android:text="@string/reset"
+        android:textSize="@dimen/reset_camera_text_size"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
 
     <FrameLayout
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        />
-</LinearLayout>
+        android:layout_height="match_parent"/>
+
+</FrameLayout>
