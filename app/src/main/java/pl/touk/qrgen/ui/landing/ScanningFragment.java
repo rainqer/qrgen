@@ -157,9 +157,8 @@ public class ScanningFragment extends Fragment {
                 killScanner();
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    Intent intent = new Intent(getActivity(), CodeGeneratedActivity.class)
-                            .putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PLAIN_TEXT.ordinal())
-                            .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, sym.getData());
+                    Intent intent = CodeGeneratedActivity
+                            .getIntentForSpecificContent(getActivity(), sym.getData());
                     VIEW_QR_CODE_TRANSLATION = 11223;
                     startActivityForResult(intent, VIEW_QR_CODE_TRANSLATION);
                 }

@@ -2,7 +2,6 @@ package pl.touk.qrgen.ui.details;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,13 +38,13 @@ public class DetailsPageActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        donotAnimateStatusBar();
+        doNotAnimateStatusBar();
         setContentView(R.layout.activity_details);
         assembleDaggerComponent();
         setUpUi();
     }
 
-    private void donotAnimateStatusBar() {
+    private void doNotAnimateStatusBar() {
         if (VersionUtil.lolipopTransitionsAvailable()) {
             Transition fade = new Fade();
             fade.excludeTarget(android.R.id.statusBarBackground, true);

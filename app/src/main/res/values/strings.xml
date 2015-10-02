@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QrGen</string>
+    <string name="app_name">Simple Qr Codes</string>
 
     <string name="title_section1">Generate QR</string>
     <string name="title_section2">Scan QR</string>
@@ -29,11 +29,16 @@
     <!-- export to file-->
     <string name="temporary_export_file_path">qr_generations</string>
     <string name="temporary_export_file_name">qr_code</string>
-    <string name="export">Add to photos</string>
+
+    <!-- copy to cliboard-->
+    <string name="copy_to_cliboard">Copy content to clip board</string>
 
     <!-- Share-->
     <string name="share">Share</string>
     <string name="share_selector_message">Share Qr via</string>
+
+    <!-- launch link-->
+    <string name="launch_link">Open web link</string>
 
     <!-- scan fragment -->
     <string name="reset">RESET CAMERA</string>

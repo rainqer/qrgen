@@ -1,6 +1,9 @@
 package pl.touk.qrgen.ui.generated;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -23,6 +26,7 @@ import butterknife.OnClick;
 import pl.touk.qrgen.R;
 import pl.touk.qrgen.service.FileExportedBitmap;
 import pl.touk.qrgen.service.ShareAction;
+import pl.touk.qrgen.tools.ClipBoardExporter;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,7 +36,6 @@ import rx.subscriptions.Subscriptions;
 
 public abstract class QrFragment extends Fragment{
 
-    private static final int USER_CHOOSE_FILE_CODE = 10101;
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     @Bind(R.id.human_readable_data) TextView humanReadableDataTextView;
     private Subscription qrCodeGenerationSubscription = Subscriptions.empty();
@@ -98,20 +101,18 @@ public abstract class QrFragment extends Fragment{
                     .subscribe(new ShareAction(getActivity()));
         }
     }
-    @OnClick(R.id.export)
+
+    @OnClick(R.id.copy_text)
     public void exportButtonClicked() {
         if (bitmapHolder.bitmap != null) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            startActivityForResult(intent, USER_CHOOSE_FILE_CODE);
+            new ClipBoardExporter(extractDataFromIntent()).exportToClipBoard(getActivity());
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == USER_CHOOSE_FILE_CODE) {
-            //todo store the file
+    @OnClick(R.id.launch_link)
+    public void launchLinkButtonClicked() {
+        if (bitmapHolder.bitmap != null) {
+            new ClipBoardExporter(extractDataFromIntent()).exportToClipBoard(getActivity());
         }
     }
 

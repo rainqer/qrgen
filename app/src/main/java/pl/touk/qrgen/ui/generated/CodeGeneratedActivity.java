@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.view.animation.Animation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.touk.qrgen.R;
+import pl.touk.qrgen.ui.common.DecodedQrUsher;
 
 import static pl.touk.qrgen.ui.generated.QrFragmentFactory.DEFAULT;
 import static pl.touk.qrgen.ui.generated.QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE;
@@ -23,6 +22,13 @@ public class CodeGeneratedActivity extends AppCompatActivity {
 
     public static Intent getIntent(Context context) {
         return new Intent(context, CodeGeneratedActivity.class);
+    }
+
+    public static Intent getIntentForSpecificContent(Context context, String content) {
+        return new Intent(context, CodeGeneratedActivity.class)
+                .putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE,
+                        new DecodedQrUsher().getTypeOrdinal(content))
+                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, content);
     }
 
     @Override
