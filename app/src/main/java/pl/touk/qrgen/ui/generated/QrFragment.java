@@ -1,9 +1,5 @@
 package pl.touk.qrgen.ui.generated;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +33,11 @@ import rx.subscriptions.Subscriptions;
 
 public abstract class QrFragment extends Fragment{
 
+    public static final String FAILED_TO_CREATE_QR_CODE = "Failed to create qr code";
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     @Bind(R.id.human_readable_data) TextView humanReadableDataTextView;
+    @Bind(R.id.launch_link) Button launchLinkButton;
+    @Bind(R.id.dial) Button dialNumberButton;
     private Subscription qrCodeGenerationSubscription = Subscriptions.empty();
     private BitmapHolder bitmapHolder = new BitmapHolder();
 
@@ -46,6 +46,8 @@ public abstract class QrFragment extends Fragment{
 
     @NonNull
     protected abstract String extractDataFromIntent();
+    protected abstract boolean shouldShowLaunchLinkButton();
+    protected abstract boolean shouldShowDialButton();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +60,12 @@ public abstract class QrFragment extends Fragment{
 
     private void setupUi() {
         humanReadableDataTextView.setText(extractDataFromIntent());
+        if (shouldShowLaunchLinkButton()) {
+            launchLinkButton.setVisibility(View.VISIBLE);
+        }
+        if (shouldShowDialButton()) {
+            dialNumberButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -78,8 +86,8 @@ public abstract class QrFragment extends Fragment{
             tryLaunchingAndSubscribingOnQrGeneration();
         } catch (WriterException e) {
             //TODO this situation is impossible, we only create encoder for action ENCODE.
-            //TODO remove this exception asap
-            Toast.makeText(getActivity(), "Failed to create qr code", Toast.LENGTH_LONG).show();
+            //TODO remove this exception from google lib asap
+            Toast.makeText(getActivity(), FAILED_TO_CREATE_QR_CODE, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -112,7 +120,14 @@ public abstract class QrFragment extends Fragment{
     @OnClick(R.id.launch_link)
     public void launchLinkButtonClicked() {
         if (bitmapHolder.bitmap != null) {
-            new ClipBoardExporter(extractDataFromIntent()).exportToClipBoard(getActivity());
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(extractDataFromIntent())));
+        }
+    }
+
+    @OnClick(R.id.dial)
+    public void dialNumberButtonClicked() {
+        if (bitmapHolder.bitmap != null) {
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(extractDataFromIntent())));
         }
     }
 

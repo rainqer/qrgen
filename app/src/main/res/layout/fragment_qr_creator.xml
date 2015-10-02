@@ -36,6 +36,14 @@
         android:id="@+id/launch_link"
         android:text="@string/launch_link"
         android:drawableLeft="@drawable/ic_link_black_36dp"
-        style="@style/generated_code_options_style"/>
+        style="@style/generated_code_options_style"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/dial"
+        android:text="@string/dial_text"
+        android:drawableLeft="@drawable/ic_phone_black_36dp"
+        style="@style/generated_code_options_style"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -12,6 +12,8 @@ import rx.Observable;
 
 public class PhoneQrFragment extends QrFragment {
 
+    private static final String PREFIX = "tel:";
+
     @Nullable
     @Override
     protected Observable<Bitmap> getQrGenerationObservable() throws WriterException {
@@ -24,8 +26,21 @@ public class PhoneQrFragment extends QrFragment {
     @NonNull
     @Override
     protected String extractDataFromIntent() {
-        return getActivity().getIntent()
+        String phoneNumber = getActivity().getIntent()
                 .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+        return phoneNumber.startsWith(PREFIX)
+                ? phoneNumber
+                : PREFIX + phoneNumber;
+    }
+
+    @Override
+    protected boolean shouldShowLaunchLinkButton() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldShowDialButton() {
+        return true;
     }
 
     protected QrCodeGenerator getQrCodeGenerator() {

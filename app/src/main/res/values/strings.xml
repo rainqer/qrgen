@@ -30,15 +30,12 @@
     <string name="temporary_export_file_path">qr_generations</string>
     <string name="temporary_export_file_name">qr_code</string>
 
-    <!-- copy to cliboard-->
-    <string name="copy_to_cliboard">Copy content to clip board</string>
-
-    <!-- Share-->
+    <!-- decoded actions-->
     <string name="share">Share</string>
     <string name="share_selector_message">Share Qr via</string>
-
-    <!-- launch link-->
+    <string name="copy_to_cliboard">Copy content to clip board</string>
     <string name="launch_link">Open web link</string>
+    <string name="dial_text">Dial the number</string>
 
     <!-- scan fragment -->
     <string name="reset">RESET CAMERA</string>

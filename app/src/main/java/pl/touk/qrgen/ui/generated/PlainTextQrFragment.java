@@ -28,6 +28,16 @@ public class PlainTextQrFragment extends QrFragment {
                 .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
     }
 
+    @Override
+    protected boolean shouldShowLaunchLinkButton() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldShowDialButton() {
+        return false;
+    }
+
     protected QrCodeGenerator getQrCodeGenerator() {
         return new QrPlainTextCodeGenerator();
     }
