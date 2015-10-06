@@ -29,6 +29,11 @@ public class PlainTextQrFragment extends QrFragment {
     }
 
     @Override
+    protected String extractUserReadableDataFromIntent() {
+        return extractDataFromIntent();
+    }
+
+    @Override
     protected boolean shouldShowLaunchLinkButton() {
         return false;
     }

@@ -21,18 +21,6 @@
         android:layout_marginBottom="30dp"/>
 
     <Button
-        android:id="@+id/share"
-        android:text="@string/share"
-        android:drawableLeft="@drawable/ic_share_black_36dp"
-        style="@style/generated_code_options_style"/>
-
-    <Button
-        android:id="@+id/copy_text"
-        android:text="@string/copy_to_cliboard"
-        android:drawableLeft="@drawable/ic_text_select_black_36dp"
-        style="@style/generated_code_options_style"/>
-
-    <Button
         android:id="@+id/launch_link"
         android:text="@string/launch_link"
         android:drawableLeft="@drawable/ic_link_black_36dp"
@@ -45,5 +33,17 @@
         android:drawableLeft="@drawable/ic_phone_black_36dp"
         style="@style/generated_code_options_style"
         android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/share"
+        android:text="@string/share"
+        android:drawableLeft="@drawable/ic_share_black_36dp"
+        style="@style/generated_code_options_style"/>
+
+    <Button
+        android:id="@+id/copy_text"
+        android:text="@string/copy_to_cliboard"
+        android:drawableLeft="@drawable/ic_text_select_black_36dp"
+        style="@style/generated_code_options_style"/>
 
 </LinearLayout>

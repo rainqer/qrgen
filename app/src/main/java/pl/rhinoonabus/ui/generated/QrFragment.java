@@ -31,7 +31,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-public abstract class QrFragment extends Fragment{
+public abstract class QrFragment extends Fragment {
 
     public static final String FAILED_TO_CREATE_QR_CODE = "Failed to create qr code";
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
@@ -46,6 +46,7 @@ public abstract class QrFragment extends Fragment{
 
     @NonNull
     protected abstract String extractDataFromIntent();
+    protected abstract String extractUserReadableDataFromIntent();
     protected abstract boolean shouldShowLaunchLinkButton();
     protected abstract boolean shouldShowDialButton();
 

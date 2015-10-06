@@ -26,11 +26,20 @@ public class PhoneQrFragment extends QrFragment {
     @NonNull
     @Override
     protected String extractDataFromIntent() {
-        String phoneNumber = getActivity().getIntent()
-                .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+        String phoneNumber = getPhoneNumberFromIntent();
         return phoneNumber.startsWith(PREFIX)
                 ? phoneNumber
                 : PREFIX + phoneNumber;
+    }
+
+    private String getPhoneNumberFromIntent() {
+        return getActivity().getIntent()
+                    .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+    }
+
+    @Override
+    protected String extractUserReadableDataFromIntent() {
+        return null;
     }
 
     @Override
