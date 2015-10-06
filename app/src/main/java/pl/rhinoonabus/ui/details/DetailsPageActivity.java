@@ -81,12 +81,15 @@ public class DetailsPageActivity extends AppCompatActivity
     }
 
     private void addDetailsFormFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(
-                        R.id.fragment_container,
-                        qrGenerationDetailsFormFactory.get()
-                ).commit();
+        if (getSupportFragmentManager().findFragmentByTag(QrGenerationDetailsForm.TAG) == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(
+                            R.id.fragment_container,
+                            qrGenerationDetailsFormFactory.get(),
+                            QrGenerationDetailsForm.TAG
+                    ).commit();
+        }
     }
 
     @Override

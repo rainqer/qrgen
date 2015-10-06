@@ -15,6 +15,7 @@ import pl.rhinoonabus.ui.generated.CodeGeneratedActivity;
 
 public abstract class QrGenerationDetailsForm extends FadingInFragment {
 
+    public static final String TAG = "QrGenerationDetailsForm";
     @Inject Bus bus;
     @Inject ResourceProvider resourceProvider;
 
