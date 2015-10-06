@@ -5,9 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pl.rhinoonabus.QrGenApplication;
@@ -31,7 +31,6 @@ public class LandingPageActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_landing);
         assembleDaggerComponent();
         ButterKnife.bind(this);
