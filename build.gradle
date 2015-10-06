@@ -37,7 +37,6 @@ ext {
     rxJava = 'io.reactivex:rxjava:1.0.14'
     supportDesign = 'com.android.support:design:23.0.1'
     qrZxing = 'com.google.zxing:core:3.2.1'
-    fabric = 'com.crashlytics.sdk.android:crashlytics:2.5.2@aar'
 }
 
 task clean(type: Delete) {

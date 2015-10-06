@@ -47,7 +47,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import pl.touk.qrgen.R;
+import pl.rhinoonabus.qrgen.R;
 
 /**
  * This class does the work of decoding the user's request and extracting all the data

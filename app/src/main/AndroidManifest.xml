@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pl.touk.qrgen" >
+    package="pl.rhinoonabus.qrgen" >
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,9 +14,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name=".QrGenApplication">
+        android:name="pl.rhinoonabus.QrGenApplication">
         <activity
-            android:name=".ui.landing.LandingPageActivity"
+            android:name="pl.rhinoonabus.ui.landing.LandingPageActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -26,11 +26,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.details.DetailsPageActivity"
-            android:parentActivityName=".ui.landing.LandingPageActivity"
+        <activity android:name="pl.rhinoonabus.ui.details.DetailsPageActivity"
+            android:parentActivityName="pl.rhinoonabus.ui.landing.LandingPageActivity"
             android:launchMode="singleTop"/>
-        <activity android:name=".ui.generated.CodeGeneratedActivity"
-            android:parentActivityName=".ui.details.DetailsPageActivity"/>
+        <activity android:name="pl.rhinoonabus.ui.generated.CodeGeneratedActivity"
+            android:parentActivityName="pl.rhinoonabus.ui.details.DetailsPageActivity"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a0b22b801eedb455ca0fb750d47482784763330e" />

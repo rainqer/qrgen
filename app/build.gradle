@@ -2,26 +2,24 @@ buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
     }
-
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply plugin: 'com.neenbedankt.android-apt'
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
     defaultConfig {
-        applicationId "pl.touk.qrgen"
+        applicationId "pl.rhinoonabus.qrgen"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -53,6 +51,9 @@ dependencies {
     compile rxJava
     compile supportDesign
     compile qrZxing
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+        transitive = true
+    }
 
     apt daggerCompiler
     apt lombok
@@ -65,7 +66,4 @@ dependencies {
     testCompile mockito
     testCompile (robolectric)
     testCompile robolectricShadowsSupport
-    compile(fabric) {
-        transitive = true;
-    }
 }
