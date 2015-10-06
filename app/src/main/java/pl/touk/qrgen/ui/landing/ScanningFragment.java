@@ -34,6 +34,8 @@ import pl.touk.qrgen.ui.generated.QrFragmentFactory;
 //TODO needs seperating logic from views
 public class ScanningFragment extends Fragment {
 
+    private static final int VIEW_QR_CODE_TRANSLATION = 11223;
+
     @Inject Bus bus;
     @Bind(R.id.resetScannerButton) View resetCameraButton;
     @Bind(R.id.cameraPreview) FrameLayout cameraPreview;
@@ -142,7 +144,6 @@ public class ScanningFragment extends Fragment {
         }
     };
 
-    private int VIEW_QR_CODE_TRANSLATION;
     Camera.PreviewCallback previewCb = new Camera.PreviewCallback() {
         public void onPreviewFrame(byte[] data, Camera camera) {
             Camera.Parameters parameters = camera.getParameters();
@@ -159,7 +160,6 @@ public class ScanningFragment extends Fragment {
                 for (Symbol sym : syms) {
                     Intent intent = CodeGeneratedActivity
                             .getIntentForSpecificContent(getActivity(), sym.getData());
-                    VIEW_QR_CODE_TRANSLATION = 11223;
                     startActivityForResult(intent, VIEW_QR_CODE_TRANSLATION);
                 }
             }
