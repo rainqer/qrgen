@@ -69,7 +69,7 @@ public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
     }
 
     @NonNull
-    private String getUserInput() {
+    protected String getUserInput() {
         return userContent.getText().toString();
     }
 

@@ -27,7 +27,7 @@ public class PhoneDetailsFormFragment extends PlainTextDetailsFormFragment {
     @Override
     public void setupLaunchIntent(Intent intent) {
         intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PHONE.ordinal())
-                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, userContent.getText().toString());
+                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, getUserInput());
     }
 
     @Subscribe

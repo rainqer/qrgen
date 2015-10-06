@@ -27,7 +27,7 @@ public class UrlDetailsFormFragment extends PlainTextDetailsFormFragment {
     @Override
     public void setupLaunchIntent(Intent intent) {
         intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.URL.ordinal())
-                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, userContent.getText().toString());
+                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, getUserInput());
     }
 
     @Subscribe
