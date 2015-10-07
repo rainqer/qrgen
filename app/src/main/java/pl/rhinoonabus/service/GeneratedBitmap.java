@@ -2,15 +2,14 @@ package pl.rhinoonabus.service;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.encode.QRCodeEncoder;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import io.fabric.sdk.android.Fabric;
 
 class GeneratedBitmap implements Future<Bitmap> {
 
@@ -52,7 +51,7 @@ class GeneratedBitmap implements Future<Bitmap> {
         try {
             result = encoder.encodeAsBitmap();
         } catch (WriterException e) {
-            Log.e(QrCodeGenerator.TAG, ERROR_MESSAGE, e);
+            Fabric.getLogger().e(QrCodeGenerator.TAG, ERROR_MESSAGE, e);
         }
         done = true;
         return result;

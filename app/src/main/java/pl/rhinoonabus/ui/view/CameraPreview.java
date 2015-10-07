@@ -4,7 +4,6 @@
 package pl.rhinoonabus.ui.view;
 
 import java.io.IOException;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.content.Context;
@@ -12,8 +11,16 @@ import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.AutoFocusCallback;
 
+import io.fabric.sdk.android.Fabric;
+
 //TODO refactor this borrowed class
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+
+    private static final String TAG = "CameraPreview";
+    private static final String ERROR_STOPPING_CAMERA_PREVIEW = "Error stopping camera preview";
+    private static final String ERROR_STARTING_CAMERA_PREVIEW = "Error starting camera preview";
+    private static final String ERROR_SETTING_CAMERA_PREVIEW = "Error setting camera preview";
+
     private SurfaceHolder mHolder;
     private Camera mCamera;
     private PreviewCallback previewCallback;
@@ -35,7 +42,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         try {
             mCamera.setPreviewDisplay(holder);
         } catch (IOException e) {
-            Log.d("DBG", "Error setting camera preview: " + e.getMessage());
+            Fabric.getLogger().e(TAG, ERROR_SETTING_CAMERA_PREVIEW, e);
         }
     }
 
@@ -49,6 +56,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         try {
             mCamera.stopPreview();
         } catch (Exception e){
+            Fabric.getLogger().e(TAG, ERROR_STOPPING_CAMERA_PREVIEW, e);
         }
 
         try {
@@ -58,7 +66,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.startPreview();
             mCamera.autoFocus(autoFocusCallback);
         } catch (Exception e){
-            Log.d("DBG", "Error starting camera preview: " + e.getMessage());
+            Fabric.getLogger().e(TAG, ERROR_STARTING_CAMERA_PREVIEW, e);
         }
     }
 }

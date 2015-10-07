@@ -1,7 +1,6 @@
 package pl.rhinoonabus.dagger;
 
 import android.support.v7.app.AppCompatActivity;
-
 import dagger.Module;
 import dagger.Provides;
 import pl.rhinoonabus.ui.ResourceProvider;

@@ -17,6 +17,7 @@ import com.google.zxing.WriterException;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 import pl.rhinoonabus.qrgen.R;
 import pl.rhinoonabus.service.FileExportedBitmap;
 import pl.rhinoonabus.service.QrCodeGenerator;
@@ -31,6 +32,7 @@ import rx.subscriptions.Subscriptions;
 
 public abstract class QrFragment extends Fragment {
 
+    public static final String TAG = "QrFragment";
     public static final String FAILED_TO_CREATE_QR_CODE = "Failed to create qr code";
     @Bind(R.id.qr_image_view) ImageView qrCodeImageView;
     @Bind(R.id.human_readable_data) TextView humanReadableDataTextView;
@@ -84,6 +86,7 @@ public abstract class QrFragment extends Fragment {
         } catch (WriterException e) {
             //TODO this situation is impossible, we only create encoder for action ENCODE.
             //TODO remove this exception from google lib asap
+            Fabric.getLogger().e(TAG, FAILED_TO_CREATE_QR_CODE, e);
             Toast.makeText(getActivity(), FAILED_TO_CREATE_QR_CODE, Toast.LENGTH_LONG).show();
         }
     }

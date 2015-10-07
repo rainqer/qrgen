@@ -8,7 +8,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 @RunWith(RobolectricGradleTestRunner.class)
 public class QrPlainTextCodeGeneratorTest {

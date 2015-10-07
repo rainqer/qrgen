@@ -1,11 +1,8 @@
 package pl.rhinoonabus.dagger;
 
 import android.content.Context;
-
 import com.squareup.otto.Bus;
-
 import javax.inject.Singleton;
-
 import dagger.Component;
 import pl.rhinoonabus.QrGenApplication;
 

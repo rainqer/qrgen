@@ -34,7 +34,7 @@ public class DecodedQrUsherTest {
     private DecodedQrUsher decodedQrUsher;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         decodedQrUsher = new DecodedQrUsher();
     }
 

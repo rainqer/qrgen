@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,8 +12,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import io.fabric.sdk.android.Fabric;
+
 public class FileExportedBitmap implements Future<Uri> {
 
+    private static final String TAG = "FileExportedBitmap";
     private static final String ERROR_MESSAGE = "Exporting qr bitmap failed";
     private final String filePath;
     private final String fileName;
@@ -45,8 +47,9 @@ public class FileExportedBitmap implements Future<Uri> {
     @Override
     public Uri get() throws ExecutionException {
         try {
-            return exportToFile();
+            return tryExportingToFile();
         } catch (IOException e) {
+            Fabric.getLogger().e(TAG, ERROR_MESSAGE, e);
             throw new ExecutionException(e);
         }
     }
@@ -54,13 +57,14 @@ public class FileExportedBitmap implements Future<Uri> {
     @Override
     public Uri get(long timeout, TimeUnit unit) throws ExecutionException {
         try {
-            return exportToFile();
+            return tryExportingToFile();
         } catch (IOException e) {
+            Fabric.getLogger().e(TAG, ERROR_MESSAGE, e);
             throw new ExecutionException(e);
         }
     }
 
-    private Uri exportToFile() throws IOException {
+    private Uri tryExportingToFile() throws IOException {
         final File dir = new File(Environment.getExternalStorageDirectory(), filePath);
 
         if (!dir.exists()) {
