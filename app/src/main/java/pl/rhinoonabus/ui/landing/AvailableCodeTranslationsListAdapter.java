@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import pl.rhinoonabus.qrgen.R;
 import pl.rhinoonabus.ui.ResourceProvider;
@@ -89,7 +87,7 @@ public class AvailableCodeTranslationsListAdapter extends BaseAdapter {
             image = ButterKnife.findById(view, R.id.qr_code_type_icon);
             title.setId(qrCodeType.getTransitionViewId());
             if (VersionUtil.lolipopTransitionsAvailable()) {
-                title.setTransitionName(qrCodeType.getDrawableViewTransitionName());
+                title.setTransitionName(qrCodeType.getTransitionName());
             }
         }
     }

@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-
 import com.google.zxing.WriterException;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.client.android.encode.QRCodeEncoder;
-
 import rx.Observable;
 
 public abstract class QrCodeGenerator {

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import net.sourceforge.zbar.Config;
@@ -22,16 +21,19 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.fabric.sdk.android.Fabric;
 import pl.rhinoonabus.dagger.Components;
 import pl.rhinoonabus.dagger.LandingActivityComponent;
 import pl.rhinoonabus.events.GenerateCodePageSelectedEvent;
 import pl.rhinoonabus.events.ScanCodePageSelectedEvent;
 import pl.rhinoonabus.qrgen.R;
 import pl.rhinoonabus.ui.generated.CodeGeneratedActivity;
+import pl.rhinoonabus.ui.view.CameraPreview;
 
-//TODO needs seperating logic from views
+//TODO refactor this borrowed class, separate logic from views
 public class ScanningFragment extends Fragment {
 
+    private static final String TAG = "ScanningFragment";
     private static final int VIEW_QR_CODE_TRANSLATION = 11223;
 
     @Inject Bus bus;
@@ -67,12 +69,16 @@ public class ScanningFragment extends Fragment {
     }
 
     private void initScanner() {
-        mCamera = getCameraInstance();
-        cameraPreview.addView(new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB));
-        mCamera.setPreviewCallback(previewCb);
-        mCamera.startPreview();
-        previewing = true;
-        mCamera.autoFocus(autoFocusCB);
+        try {
+            mCamera = Camera.open();
+            cameraPreview.addView(new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB));
+            mCamera.setPreviewCallback(previewCb);
+            mCamera.startPreview();
+            previewing = true;
+            mCamera.autoFocus(autoFocusCB);
+        } catch (Exception e) {
+            Fabric.getLogger().e(TAG, getString(R.string.camera_failed), e);
+        }
     }
 
     private void killScanner() {
@@ -80,8 +86,9 @@ public class ScanningFragment extends Fragment {
         if (mCamera != null) {
             mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
         }
-        releaseCamera();
         cameraPreview.removeAllViews();
     }
 
@@ -90,7 +97,6 @@ public class ScanningFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         autoFocusHandler = new Handler();
 
-        /* Instance barcode scanner */
         scanner = new ImageScanner();
         scanner.setConfig(0, Config.X_DENSITY, 3);
         scanner.setConfig(0, Config.Y_DENSITY, 3);
@@ -114,25 +120,6 @@ public class ScanningFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-    }
-
-    /** A safe way to get an instance of the Camera object. */
-    private static Camera getCameraInstance(){
-        Camera c = null;
-        try {
-            c = Camera.open();
-        } catch (Exception e){
-        }
-        return c;
-    }
-
-    private void releaseCamera() {
-        if (mCamera != null) {
-            previewing = false;
-            mCamera.setPreviewCallback(null);
-            mCamera.release();
-            mCamera = null;
-        }
     }
 
     private Runnable doAutoFocus = new Runnable() {

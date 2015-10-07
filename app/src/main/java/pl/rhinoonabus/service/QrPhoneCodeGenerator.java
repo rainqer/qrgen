@@ -1,7 +1,6 @@
 package pl.rhinoonabus.service;
 
 import android.content.Intent;
-
 import com.google.zxing.client.android.Contents;
 import com.google.zxing.client.android.Intents;
 

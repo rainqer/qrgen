@@ -2,9 +2,7 @@ package pl.rhinoonabus;
 
 import android.app.Application;
 import android.content.Context;
-
 import com.crashlytics.android.Crashlytics;
-
 import io.fabric.sdk.android.Fabric;
 import pl.rhinoonabus.dagger.ContextModule;
 import pl.rhinoonabus.dagger.DaggerQrGenComponent;
