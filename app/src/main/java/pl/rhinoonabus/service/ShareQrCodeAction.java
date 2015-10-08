@@ -3,15 +3,14 @@ package pl.rhinoonabus.service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-
 import pl.rhinoonabus.qrgen.R;
 import rx.functions.Action1;
 
-public class ShareAction implements Action1<Uri> {
+public class ShareQrCodeAction implements Action1<Uri> {
 
     private final Context context;
 
-    public ShareAction(Context context) {
+    public ShareQrCodeAction(Context context) {
         this.context = context;
     }
 
@@ -21,6 +20,6 @@ public class ShareAction implements Action1<Uri> {
             share.setType("image/*");
             share.putExtra(Intent.EXTRA_STREAM, uri);
             context.startActivity(
-                    Intent.createChooser(share, context.getString(R.string.share_selector_message)));
+                    Intent.createChooser(share, context.getString(R.string.share_qr_selector_message)));
     }
 }

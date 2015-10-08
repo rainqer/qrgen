@@ -21,7 +21,7 @@ import io.fabric.sdk.android.Fabric;
 import pl.rhinoonabus.qrgen.R;
 import pl.rhinoonabus.service.FileExportedBitmap;
 import pl.rhinoonabus.service.QrCodeGenerator;
-import pl.rhinoonabus.service.ShareAction;
+import pl.rhinoonabus.service.ShareQrCodeAction;
 import pl.rhinoonabus.tools.ClipBoardExporter;
 import rx.Observable;
 import rx.Subscription;
@@ -76,11 +76,15 @@ public abstract class QrFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        tearDown();
+    }
+
+    protected void tearDown() {
         qrCodeGenerationSubscription.unsubscribe();
         ButterKnife.unbind(this);
     }
 
-    private void createQrCode() {
+    protected void createQrCode() {
         try {
             tryLaunchingAndSubscribingOnQrGeneration();
         } catch (WriterException e) {
@@ -105,12 +109,19 @@ public abstract class QrFragment extends Fragment {
         return getQrCodeGenerator().generate(getActivity(), extractDataFromIntent());
     }
 
-    @OnClick(R.id.share)
-    public void shareButtonClicked() {
+    @OnClick(R.id.share_code)
+         public void shareButtonClicked() {
         if (bitmapHolder.bitmap != null) {
             getObservableForBitmapExport()
                     .subscribeOn(Schedulers.computation())
-                    .subscribe(new ShareAction(getActivity()));
+                    .subscribe(new ShareQrCodeAction(getActivity()));
+        }
+    }
+
+    @OnClick(R.id.share_text_content)
+    public void shareTextButtonClicked() {
+        if (bitmapHolder.bitmap != null) {
+            shareTextContent();
         }
     }
 
@@ -135,9 +146,15 @@ public abstract class QrFragment extends Fragment {
         }
     }
 
-    @NonNull
     private Uri getPhoneNumber() {
         return Uri.parse(PhoneQrFragment.PHONE_NUMBER_PREFIX + extractDataFromIntent());
+    }
+
+    private void shareTextContent() {
+        Intent shareText = new Intent(Intent.ACTION_SEND)
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT, extractDataFromIntent());
+        startActivity(Intent.createChooser(shareText, getString(R.string.share_text_selector_message)));
     }
 
     private Observable<Uri> getObservableForBitmapExport() {

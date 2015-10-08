@@ -33,7 +33,16 @@
             android:screenOrientation="portrait"/>
         <activity android:name="pl.rhinoonabus.ui.generated.CodeGeneratedActivity"
             android:parentActivityName="pl.rhinoonabus.ui.details.DetailsPageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="message/*" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+
+        </activity>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a0b22b801eedb455ca0fb750d47482784763330e" />

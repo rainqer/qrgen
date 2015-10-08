@@ -6,6 +6,9 @@ import pl.rhinoonabus.ui.generated.QrFragmentFactory;
 public class DecodedQrUsher {
 
     public int getTypeOrdinal(String content) {
+        if (content == null || content.trim().isEmpty()) {
+            return QrFragmentFactory.EMPTY.ordinal();
+        }
         if (PatternHolder.get().urlLink.matcher(content).matches()
                 || PatternHolder.get().urlLinkWithoutHttp.matcher(content).matches()) {
             return QrFragmentFactory.URL.ordinal();

@@ -1,5 +1,6 @@
 package pl.rhinoonabus.ui.generated;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import pl.rhinoonabus.service.QrCodeGenerator;
 import pl.rhinoonabus.service.QrPlainTextCodeGenerator;
@@ -10,7 +11,7 @@ public class PlainTextQrFragment extends QrFragment {
     @Override
     protected String extractDataFromIntent() {
         return getActivity().getIntent()
-                .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+                .getStringExtra(Intent.EXTRA_TEXT);
     }
 
     @Override

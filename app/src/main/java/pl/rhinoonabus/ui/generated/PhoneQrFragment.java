@@ -1,5 +1,6 @@
 package pl.rhinoonabus.ui.generated;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import pl.rhinoonabus.service.QrCodeGenerator;
 import pl.rhinoonabus.service.QrPhoneCodeGenerator;
@@ -19,7 +20,7 @@ public class PhoneQrFragment extends QrFragment {
 
     private String getPhoneNumberFromIntent() {
         String phoneNumber = getActivity().getIntent()
-                    .getStringExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY);
+                    .getStringExtra(Intent.EXTRA_TEXT);
         return phoneNumber != null
                 ? phoneNumber
                 : "";

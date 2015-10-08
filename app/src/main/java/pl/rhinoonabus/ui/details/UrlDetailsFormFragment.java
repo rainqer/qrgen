@@ -10,7 +10,6 @@ import com.squareup.otto.Subscribe;
 import butterknife.ButterKnife;
 import pl.rhinoonabus.events.GenerateCodeButtonClickedEvent;
 import pl.rhinoonabus.qrgen.R;
-import pl.rhinoonabus.ui.generated.CodeGeneratedActivity;
 import pl.rhinoonabus.ui.generated.QrFragmentFactory;
 
 public class UrlDetailsFormFragment extends PlainTextDetailsFormFragment {
@@ -27,7 +26,7 @@ public class UrlDetailsFormFragment extends PlainTextDetailsFormFragment {
     @Override
     public void setupLaunchIntent(Intent intent) {
         intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.URL.ordinal())
-                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, getUserInput());
+                .putExtra(Intent.EXTRA_TEXT, getUserInput());
     }
 
     @Subscribe

@@ -31,11 +31,14 @@
     <string name="temporary_export_file_name">qr_code</string>
 
     <!-- decoded actions-->
-    <string name="share">Share</string>
-    <string name="share_selector_message">Share Qr via</string>
+    <string name="share_code">Share qr code</string>
+    <string name="share_text">Share text content</string>
+    <string name="share_qr_selector_message">Share Qr via</string>
+    <string name="share_text_selector_message">Share via</string>
     <string name="copy_to_cliboard">Copy content to clip board</string>
     <string name="launch_link">Open web link</string>
     <string name="dial_text">Dial the number</string>
+    <string name="empty_text">I cannot process the content You are trying to encode.</string>
 
     <!-- scan fragment -->
     <string name="reset">RESET CAMERA</string>

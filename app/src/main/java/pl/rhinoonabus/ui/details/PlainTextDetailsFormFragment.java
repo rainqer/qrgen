@@ -18,7 +18,6 @@ import pl.rhinoonabus.dagger.Components;
 import pl.rhinoonabus.dagger.DetailsActivityComponent;
 import pl.rhinoonabus.events.GenerateCodeButtonClickedEvent;
 import pl.rhinoonabus.qrgen.R;
-import pl.rhinoonabus.ui.generated.CodeGeneratedActivity;
 import pl.rhinoonabus.ui.generated.QrFragmentFactory;
 
 public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
@@ -65,7 +64,7 @@ public class PlainTextDetailsFormFragment extends QrGenerationDetailsForm {
     @Override
     public void setupLaunchIntent(Intent intent) {
         intent.putExtra(QrFragmentFactory.QR_GENERATION_PROVIDER_TYPE, QrFragmentFactory.PLAIN_TEXT.ordinal())
-                .putExtra(CodeGeneratedActivity.TRANSLATION_CONTENT_KEY, getUserInput());
+                .putExtra(Intent.EXTRA_TEXT, getUserInput());
     }
 
     @NonNull

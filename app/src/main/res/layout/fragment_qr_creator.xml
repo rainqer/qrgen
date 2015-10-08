@@ -36,8 +36,14 @@
         android:visibility="gone"/>
 
     <Button
-        android:id="@+id/share"
-        android:text="@string/share"
+        android:id="@+id/share_code"
+        android:text="@string/share_code"
+        android:drawableLeft="@drawable/ic_share_black_36dp"
+        style="@style/generated_code_options_style"/>
+
+    <Button
+        android:id="@+id/share_text_content"
+        android:text="@string/share_text"
         android:drawableLeft="@drawable/ic_share_black_36dp"
         style="@style/generated_code_options_style"/>
 
