@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">QR są proste</string>
+
+    <string name="title_section1">Stwórz QR</string>
+    <string name="title_section2">Zeskanuj QR</string>
+
+    <string name="translation_plain_text_error">Oj, Nie uzupełniłeś wszystkich pól potrzebnych do stworzenia kodu.</string>
+
+    <string name="translation_subtitle">Stwórz kod QR wykorzystując</string>
+    <!-- plain text to qr code-->
+    <string name="translation_plain_text_transition">plain_text_transition_to_details</string>
+    <string name="translation_plain_text_title">Zwykły tekst</string>
+    <string name="translation_plain_text_content">Zamień zwykły tekst w kod QR.</string>
+    <string name="translation_plain_text_hint">Wpisz swoją treść tutaj...</string>
+
+    <!-- url to qr code-->
+    <string name="translation_url_transition">url_transition_to_details</string>
+    <string name="translation_url_title">Łącze internetowe</string>
+    <string name="translation_url_content">Ten kod QR będzie mógł być użyty jako odnośnik do strony internetowej.</string>
+    <string name="translation_url_hint">Wpisz adres strony internetowej ...</string>
+
+    <!-- url to qr code-->
+    <string name="translation_phone_transition">phone_transition_to_details</string>
+    <string name="translation_phone_title">Numer telefonu</string>
+    <string name="translation_phone_content">Stwórz kod QR, który po odczytaniu da numer telefonu pod który można zadzwonić.</string>
+    <string name="translation_phone_hint">Wpisz numer telefonu ...</string>
+
+    <!-- export to file-->
+    <string name="temporary_export_file_path">qr_generations</string>
+    <string name="temporary_export_file_name">qr_code</string>
+
+    <!-- decoded actions-->
+    <string name="share_code">Prześlij swój kod QR</string>
+    <string name="share_text">Prześlij odczytaną zawartość kodu QR</string>
+    <string name="share_qr_selector_message">Prześlij Qr przy pomocy</string>
+    <string name="share_text_selector_message">Prześlij Qr przy pomocy</string>
+    <string name="copy_to_cliboard">Skopiuj zawartośc tekstową do schowka</string>
+    <string name="launch_link">Otwórz łącze internetowe</string>
+    <string name="dial_text">Wykręć numer</string>
+    <string name="empty_text">Niestety, podana zawartość nie mogła być zamieniona w kod QR.</string>
+
+    <!-- scan fragment -->
+    <string name="reset">URUCHOM SKANER</string>
+</resources>

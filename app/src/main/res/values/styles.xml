@@ -54,7 +54,7 @@
         <item name="android:drawablePadding">10dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/generated_code_options_text_size</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:textColor">@color/black</item>
     </style>

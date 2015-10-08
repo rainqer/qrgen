@@ -34,6 +34,7 @@ import pl.rhinoonabus.ui.view.CameraPreview;
 public class ScanningFragment extends Fragment {
 
     private static final String TAG = "ScanningFragment";
+    private static final String ERROR_MESSAGE = "failed setting up the camera";
     private static final int VIEW_QR_CODE_TRANSLATION = 11223;
 
     @Inject Bus bus;
@@ -77,7 +78,7 @@ public class ScanningFragment extends Fragment {
             previewing = true;
             mCamera.autoFocus(autoFocusCB);
         } catch (Exception e) {
-            Fabric.getLogger().e(TAG, getString(R.string.camera_failed), e);
+            Fabric.getLogger().e(TAG, ERROR_MESSAGE, e);
         }
     }
 
