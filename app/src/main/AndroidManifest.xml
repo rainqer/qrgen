@@ -18,7 +18,8 @@
         <activity
             android:name="pl.rhinoonabus.ui.landing.LandingPageActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +29,11 @@
 
         <activity android:name="pl.rhinoonabus.ui.details.DetailsPageActivity"
             android:parentActivityName="pl.rhinoonabus.ui.landing.LandingPageActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
         <activity android:name="pl.rhinoonabus.ui.generated.CodeGeneratedActivity"
-            android:parentActivityName="pl.rhinoonabus.ui.details.DetailsPageActivity"/>
+            android:parentActivityName="pl.rhinoonabus.ui.details.DetailsPageActivity"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a0b22b801eedb455ca0fb750d47482784763330e" />

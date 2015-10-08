@@ -213,8 +213,6 @@ public final class QRCodeEncoder {
         }
       }
     }
-    Log.d(TAG, "Encoding share intent content:");
-    Log.d(TAG, vcardString);
     Result result = new Result(vcardString, vcard, null, BarcodeFormat.QR_CODE);
     ParsedResult parsedResult = ResultParser.parseResult(result);
     if (!(parsedResult instanceof AddressBookParsedResult)) {
