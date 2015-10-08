@@ -11,12 +11,16 @@ public class DecodedQrUsherTest {
 
     public static final String POLISH_MOBILE_NUMBER = "500100222";
     public static final String POLISH_MOBILE_NUMBER_PREFIX = "tel:500100222";
+    public static final String POLISH_MOBILE_NUMBER_PREFIX_CAPITAL = "TEL:500100222";
     public static final String POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE = "+48500100222";
     public static final String POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE_PREFIX = "tel:+48500100222";
+    public static final String POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE_PREFIX_CAPITAL = "TEL:+48500100222";
     public static final String POLISH_HOME_NUMBER = "227830303";
     public static final String POLISH_HOME_NUMBER_PREFIX = "tel:227830303";
+    public static final String POLISH_HOME_NUMBER_PREFIX_CAPITAL = "TEL:227830303";
     public static final String POLISH_HOME_NUMBER_WITH_COUNTRY_CODE = "+48227830303";
     public static final String POLISH_HOME_NUMBER_WITH_COUNTRY_CODE_PREFIX = "tel:+48227830303";
+    public static final String POLISH_HOME_NUMBER_WITH_COUNTRY_CODE_PREFIX_CAPITAL = "TEL:+48227830303";
 
     public static final String[] URLS = {
             "http://www.tlen.pl",
@@ -57,6 +61,15 @@ public class DecodedQrUsherTest {
     }
 
     @Test
+    public void shouldReactOnPolishMobileNumberWithPrefixCapital() {
+        // when
+        int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_MOBILE_NUMBER_PREFIX_CAPITAL);
+
+        // then
+        assertThat(ordinal).isEqualTo(PHONE.ordinal());
+    }
+
+    @Test
     public void shouldReactOnPolishMobileNumberWithCountryCode() {
         // when
         int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE);
@@ -69,6 +82,15 @@ public class DecodedQrUsherTest {
     public void shouldReactOnPolishMobileNumberWithCountryCodeAndPrefix() {
         // when
         int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE_PREFIX);
+
+        // then
+        assertThat(ordinal).isEqualTo(PHONE.ordinal());
+    }
+
+    @Test
+    public void shouldReactOnPolishMobileNumberWithCountryCodeAndPrefixCapital() {
+        // when
+        int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_MOBILE_NUMBER_WITH_COUNTY_CODE_PREFIX_CAPITAL);
 
         // then
         assertThat(ordinal).isEqualTo(PHONE.ordinal());
@@ -93,6 +115,15 @@ public class DecodedQrUsherTest {
     }
 
     @Test
+    public void shouldReactOnPolishHomeNumberWithPrefixCapital() {
+        // when
+        int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_HOME_NUMBER_PREFIX_CAPITAL);
+
+        // then
+        assertThat(ordinal).isEqualTo(PHONE.ordinal());
+    }
+
+    @Test
     public void shouldReactOnPolishHomeNumberWithCountryCode() {
         // when
         int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_HOME_NUMBER_WITH_COUNTRY_CODE);
@@ -105,6 +136,15 @@ public class DecodedQrUsherTest {
     public void shouldReactOnPolishHomeNumberWithCountryCodeAndPrefix() {
         // when
         int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_HOME_NUMBER_WITH_COUNTRY_CODE_PREFIX);
+
+        // then
+        assertThat(ordinal).isEqualTo(PHONE.ordinal());
+    }
+
+    @Test
+    public void shouldReactOnPolishHomeNumberWithCountryCodeAndPrefixCapital() {
+        // when
+        int ordinal = decodedQrUsher.getTypeOrdinal(POLISH_HOME_NUMBER_WITH_COUNTRY_CODE_PREFIX_CAPITAL);
 
         // then
         assertThat(ordinal).isEqualTo(PHONE.ordinal());

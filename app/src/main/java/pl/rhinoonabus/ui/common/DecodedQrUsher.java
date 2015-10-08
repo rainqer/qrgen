@@ -13,7 +13,8 @@ public class DecodedQrUsher {
                 || PatternHolder.get().urlLinkWithoutHttp.matcher(content).matches()) {
             return QrFragmentFactory.URL.ordinal();
         } else if (PatternHolder.get().phoneNumberPattern.matcher(content).matches()
-                ||PatternHolder.get().phoneNumberPatternWithPrefix.matcher(content).matches()) {
+                ||PatternHolder.get().phoneNumberPatternWithPrefix.matcher(content).matches()
+                ||PatternHolder.get().phoneNumberPatternWithCapitalPrefix.matcher(content).matches()) {
             return QrFragmentFactory.PHONE.ordinal();
         }
         return QrFragmentFactory.PLAIN_TEXT.ordinal();
@@ -32,6 +33,7 @@ public class DecodedQrUsher {
 
         private Pattern phoneNumberPattern = Pattern.compile("^(?:\\+\\d{1,3}|0\\d{1,3}|00\\d{1,2})?(?:\\s?\\(\\d+\\))?(?:[-\\/\\s.]|\\d)+$");
         private Pattern phoneNumberPatternWithPrefix = Pattern.compile("^tel:(?:\\+\\d{1,3}|0\\d{1,3}|00\\d{1,2})?(?:\\s?\\(\\d+\\))?(?:[-\\/\\s.]|\\d)+$");
+        private Pattern phoneNumberPatternWithCapitalPrefix = Pattern.compile("^TEL:(?:\\+\\d{1,3}|0\\d{1,3}|00\\d{1,2})?(?:\\s?\\(\\d+\\))?(?:[-\\/\\s.]|\\d)+$");
         private Pattern urlLink = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
         private Pattern urlLinkWithoutHttp = Pattern.compile("^www.[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
     }
