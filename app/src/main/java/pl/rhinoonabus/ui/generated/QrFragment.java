@@ -131,8 +131,13 @@ public abstract class QrFragment extends Fragment {
     @OnClick(R.id.dial)
     public void dialNumberButtonClicked() {
         if (bitmapHolder.bitmap != null) {
-            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(extractDataFromIntent())));
+            startActivity(new Intent(Intent.ACTION_DIAL, getPhoneNumber()));
         }
+    }
+
+    @NonNull
+    private Uri getPhoneNumber() {
+        return Uri.parse(PhoneQrFragment.PHONE_NUMBER_PREFIX + extractDataFromIntent());
     }
 
     private Observable<Uri> getObservableForBitmapExport() {

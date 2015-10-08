@@ -6,14 +6,14 @@ import pl.rhinoonabus.service.QrPhoneCodeGenerator;
 
 public class PhoneQrFragment extends QrFragment {
 
-    private static final String PREFIX = "tel:";
+    public static final String PHONE_NUMBER_PREFIX = "tel:";
 
     @NonNull
     @Override
     protected String extractDataFromIntent() {
         String phoneNumber = getPhoneNumberFromIntent();
-        return phoneNumber.startsWith(PREFIX)
-                ? phoneNumber.replace(PREFIX, "")
+        return phoneNumber.startsWith(PHONE_NUMBER_PREFIX)
+                ? phoneNumber.replace(PHONE_NUMBER_PREFIX, "")
                 : phoneNumber;
     }
 

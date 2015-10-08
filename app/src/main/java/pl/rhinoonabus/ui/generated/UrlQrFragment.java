@@ -3,11 +3,9 @@ package pl.rhinoonabus.ui.generated;
 import android.support.annotation.NonNull;
 import pl.rhinoonabus.service.QrCodeGenerator;
 import pl.rhinoonabus.service.QrUrlCodeGenerator;
+import pl.rhinoonabus.tools.UrlCorrector;
 
 public class UrlQrFragment extends PlainTextQrFragment {
-
-    public static final String HTTP_PREFIX = "http://";
-    public static final String HTTPS_PREFIX = "https://";
 
     @NonNull
     @Override
@@ -23,18 +21,6 @@ public class UrlQrFragment extends PlainTextQrFragment {
     @NonNull
     @Override
     protected String extractDataFromIntent() {
-        String rawData = super.extractDataFromIntent();
-        String url = removeSpacesFromData(rawData);
-        return hasHyperTextPrefix(url)
-                ? url
-                : HTTP_PREFIX + url;
-    }
-
-    private String removeSpacesFromData(String rawData) {
-        return rawData.replace(" ", "");
-    }
-
-    private boolean hasHyperTextPrefix(String url) {
-        return url.startsWith(HTTP_PREFIX) || url.startsWith(HTTPS_PREFIX);
+        return new UrlCorrector().getInCorrectFormat(super.extractDataFromIntent());
     }
 }
