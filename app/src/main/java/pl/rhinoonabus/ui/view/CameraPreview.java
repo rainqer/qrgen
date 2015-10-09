@@ -41,6 +41,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceCreated(SurfaceHolder holder) {
         try {
             mCamera.setPreviewDisplay(holder);
+            mCamera.autoFocus(autoFocusCallback);
         } catch (IOException e) {
             Fabric.getLogger().e(TAG, ERROR_SETTING_CAMERA_PREVIEW, e);
         }

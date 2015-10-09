@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">QR są proste</string>
+    <string name="app_name">Twój Skaner QR</string>
 
     <string name="title_section1">Stwórz QR</string>
     <string name="title_section2">Zeskanuj QR</string>
 
-    <string name="translation_plain_text_error">Oj, Nie uzupełniłeś wszystkich pól potrzebnych do stworzenia kodu.</string>
+    <string name="translation_plain_text_error">Ups, Nie uzupełniłeś wszystkich pól potrzebnych do stworzenia kodu.</string>
 
     <string name="translation_subtitle">Stwórz kod QR wykorzystując</string>
     <!-- plain text to qr code-->
@@ -32,6 +32,7 @@
     <!-- decoded actions-->
     <string name="share_code">Prześlij swój kod QR</string>
     <string name="share_text">Prześlij odczytaną zawartość kodu QR</string>
+    <string name="share_error_no_permission">Nie udzielono pozwolenia na zapis kodu QR do tymczasowego pliku.</string>
     <string name="share_qr_selector_message">Prześlij Qr przy pomocy</string>
     <string name="share_text_selector_message">Prześlij Qr przy pomocy</string>
     <string name="copy_to_cliboard">Skopiuj zawartośc tekstową do schowka</string>

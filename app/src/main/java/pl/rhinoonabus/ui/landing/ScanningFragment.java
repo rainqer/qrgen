@@ -1,6 +1,7 @@
 package pl.rhinoonabus.ui.landing;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,14 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
+
 import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,12 +35,17 @@ import pl.rhinoonabus.qrgen.R;
 import pl.rhinoonabus.ui.generated.CodeGeneratedActivity;
 import pl.rhinoonabus.ui.view.CameraPreview;
 
+import static android.Manifest.permission.CAMERA;
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
+import static pl.rhinoonabus.tools.PermissionRequestCodes.CAMERA_REQUEST_PERMISSION;
+
 //TODO refactor this borrowed class, separate logic from views
 public class ScanningFragment extends Fragment {
 
     private static final String TAG = "ScanningFragment";
     private static final String ERROR_MESSAGE = "failed setting up the camera";
     private static final int VIEW_QR_CODE_TRANSLATION = 11223;
+    private static final String SCANNING_FRAGMENT_SELECTED = "scanningFragmentSelected";
 
     @Inject Bus bus;
     @Bind(R.id.resetScannerButton) View resetCameraButton;
@@ -43,6 +53,7 @@ public class ScanningFragment extends Fragment {
     private Camera mCamera;
     private Handler autoFocusHandler;
     private boolean previewing = true;
+    private boolean scanningFragmentIsSelected;
     ImageScanner scanner;
 
     static {
@@ -55,28 +66,50 @@ public class ScanningFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scanning, null);
         ButterKnife.bind(this, view);
         Components.<LandingActivityComponent>from(getActivity()).inject(this);
+        restore(savedInstanceState);
         return view;
+    }
+
+    private void restore(Bundle savedInstanceState) {
+        if(savedInstanceState != null) {
+            scanningFragmentIsSelected = savedInstanceState.getBoolean(SCANNING_FRAGMENT_SELECTED);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SCANNING_FRAGMENT_SELECTED, scanningFragmentIsSelected);
     }
 
     @Subscribe
     public void onScanCodeSelected(ScanCodePageSelectedEvent event) {
+        scanningFragmentIsSelected = true;
         hideResetButton();
-        initScanner();
+        initScannerIfAllowed();
     }
 
     @Subscribe
     public void onGenerateCodeSelected(GenerateCodePageSelectedEvent event) {
+        scanningFragmentIsSelected = false;
         killScanner();
     }
 
-    private void initScanner() {
+    private void initScannerIfAllowed() {
+        if (checkSelfPermission(getActivity(), CAMERA) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{CAMERA}, CAMERA_REQUEST_PERMISSION);
+        } else {
+            tryOpeningCamera();
+        }
+    }
+
+    private void tryOpeningCamera() {
         try {
             mCamera = Camera.open();
             cameraPreview.addView(new CameraPreview(getActivity(), mCamera, previewCb, autoFocusCB));
             mCamera.setPreviewCallback(previewCb);
             mCamera.startPreview();
             previewing = true;
-            mCamera.autoFocus(autoFocusCB);
         } catch (Exception e) {
             Fabric.getLogger().e(TAG, ERROR_MESSAGE, e);
         }
@@ -107,6 +140,9 @@ public class ScanningFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (scanningFragmentIsSelected) {
+            showResetButton();
+        }
         bus.register(this);
     }
 
@@ -178,6 +214,19 @@ public class ScanningFragment extends Fragment {
     @OnClick(R.id.resetScannerButton)
     public void resetScannerButtonPressed() {
         hideResetButton();
-        initScanner();
+        initScannerIfAllowed();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[],
+                                           int[] grantResults) {
+        if (requestCode == CAMERA_REQUEST_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                initScannerIfAllowed();
+            } else {
+                showResetButton();
+            }
+        }
     }
 }

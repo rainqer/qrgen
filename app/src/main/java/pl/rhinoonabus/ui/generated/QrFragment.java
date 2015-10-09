@@ -1,6 +1,8 @@
 package pl.rhinoonabus.ui.generated;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,12 +25,16 @@ import pl.rhinoonabus.service.FileExportedBitmap;
 import pl.rhinoonabus.service.QrCodeGenerator;
 import pl.rhinoonabus.service.ShareQrCodeAction;
 import pl.rhinoonabus.tools.ClipBoardExporter;
+import pl.rhinoonabus.tools.PermissionRequestCodes;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
+
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
+import static pl.rhinoonabus.tools.PermissionRequestCodes.WRITE_TO_FILE_REQUEST_PERMISSION;
 
 public abstract class QrFragment extends Fragment {
 
@@ -110,12 +116,33 @@ public abstract class QrFragment extends Fragment {
     }
 
     @OnClick(R.id.share_code)
-         public void shareButtonClicked() {
+    public void shareButtonClicked() {
         if (bitmapHolder.bitmap != null) {
-            getObservableForBitmapExport()
-                    .subscribeOn(Schedulers.computation())
-                    .subscribe(new ShareQrCodeAction(getActivity()));
+            if (permissionToWriteToFileDenied()) {
+                requestPermissionToWriteToFile();
+            } else {
+                shareImage();
+            }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        if (WRITE_TO_FILE_REQUEST_PERMISSION == requestCode) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                shareImage();
+            } else {
+                showCouldNotShareError();
+            }
+        }
+    }
+
+    private void shareImage() {
+        getObservableForBitmapExport()
+                .subscribeOn(Schedulers.computation())
+                .subscribe(new ShareQrCodeAction(getActivity()));
     }
 
     @OnClick(R.id.share_text_content)
@@ -144,6 +171,26 @@ public abstract class QrFragment extends Fragment {
         if (bitmapHolder.bitmap != null) {
             startActivity(new Intent(Intent.ACTION_DIAL, getPhoneNumber()));
         }
+    }
+
+    private boolean permissionToWriteToFileDenied() {
+        return checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED;
+    }
+
+    private void requestPermissionToWriteToFile() {
+        requestPermissions(
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                WRITE_TO_FILE_REQUEST_PERMISSION
+        );
+    }
+
+    private void showCouldNotShareError() {
+        Toast.makeText(
+                getActivity(),
+                getString(R.string.share_error_no_permission),
+                Toast.LENGTH_SHORT
+        ).show();
     }
 
     private Uri getPhoneNumber() {
