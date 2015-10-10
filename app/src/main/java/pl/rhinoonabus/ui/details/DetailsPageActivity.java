@@ -76,7 +76,7 @@ public class DetailsPageActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        floatingActionButtonOverlay.attach(this, R.id.main_container);
+        floatingActionButtonOverlay.attach(this, R.id.fab_container);
         addDetailsFormFragment();
     }
 
