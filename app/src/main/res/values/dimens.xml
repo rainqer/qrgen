@@ -8,6 +8,7 @@
     <dimen name="translation_card_corner">5dp</dimen>
     <dimen name="translation_card_elevation">2dp</dimen>
     <dimen name="translation_card_padding">8dp</dimen>
+    <dimen name="translation_card_padding_small">2dp</dimen>
     <dimen name="translation_card_inner_margin">5dp</dimen>
     <dimen name="translation_card_subtitle_text_size">12dp</dimen>
     <dimen name="translation_card_title_text_size">30dp</dimen>

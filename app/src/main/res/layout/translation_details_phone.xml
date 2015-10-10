@@ -46,7 +46,6 @@
             android:layout_height="wrap_content"
             style="@style/edit_text_style"
             android:inputType="phone"
-            android:layout_marginBottom="@dimen/details_plain_text_bottom_margin"
             android:visibility="invisible"/>
 
     </LinearLayout>

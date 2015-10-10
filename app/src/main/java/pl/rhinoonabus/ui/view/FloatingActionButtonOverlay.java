@@ -25,14 +25,14 @@ public class FloatingActionButtonOverlay {
     public FloatingActionButtonOverlay() {
     }
 
-    public void attach(Activity activity) {
+    public void attach(Activity activity, int container) {
         View view = createView(activity);
-        getMainContentFromActivity(activity).addView(view);
+        getMainContentFromActivity(activity, container).addView(view);
         ButterKnife.bind(this, view);
     }
 
-    private ViewGroup getMainContentFromActivity(Activity activity) {
-        return (ViewGroup) activity.getWindow().getDecorView().getRootView().findViewById(android.R.id.content);
+    private ViewGroup getMainContentFromActivity(Activity activity, int container) {
+        return (ViewGroup) activity.getWindow().getDecorView().getRootView().findViewById(container);
     }
 
     @NonNull
